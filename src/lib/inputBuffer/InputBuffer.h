@@ -6,12 +6,14 @@ class InputBuffer {
 	protected:
 		InputBuffer();
 	public:
+		static InputBuffer* getBufferInstance();
+
 		void printPrompt();
-		void readInput();
-		void closeInputBuffer();
-		char* getBuffer(); // Returns the buffer_ char array
+		void readInput(std::istream& in);
+		// void closeInputBuffer(); // Destructor functionality overlap
+		std::string getBuffer(); // Getter for buffer_
 	private:
-		char* buffer_;
+		std::string buffer_;
 		size_t buffer_length_;
 		ssize_t input_length_;
 		static InputBuffer* _s_input_buffer_;		
