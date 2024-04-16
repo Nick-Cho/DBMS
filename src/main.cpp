@@ -1,15 +1,17 @@
+#include "./lib/inputBuffer/InputBuffer.h"
+#include <iostream>
 
 int main(int argc, char* argv[]) {
-	InputBuffer* input_buffer = InputBuffer();
+	InputBuffer* input_buffer = InputBuffer::getBufferInstance();
 	while (true) {
 		input_buffer->printPrompt();
-		input_buffer->readInput(input_buffer);
+		input_buffer->readInput(std::cin);
+		std::string ipt = input_buffer->getBuffer();
 		
-		if (strcmp(input_buffer->_buffer, ".exit") == 0) {
-			inputBuffer->closeInputBuffer(input_buffer);
+		if (ipt == "0") {			
 			exit(EXIT_SUCCESS);
 		} else {
-			printf("Unrecognized command '%s'. \n", input_buffer->_buffer)
+			printf("Unrecognized command '%s'. \n", ipt->getBuffer().c_str());
 		}
 	}
 }

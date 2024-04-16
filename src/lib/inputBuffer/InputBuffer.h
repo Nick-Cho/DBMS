@@ -1,6 +1,7 @@
 #ifndef INPUTBUFFER_H
 #define INPUTBUFFER_H
 #include <iostream>
+#include <string>
 
 class InputBuffer {
 	protected:
