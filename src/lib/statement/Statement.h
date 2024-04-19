@@ -1,6 +1,7 @@
 #ifndef STATEMENT_H
 #define STATEMENT_H
 
+#include "../Row/Row.h"
 #include <string>
 
 enum class StatementType {
@@ -18,9 +19,6 @@ enum class ExecuteResult {
     EXECUTE_SUCCESS,
     EXECUTE_TABLE_FULL
 };
-
-static const size_t USERNAME_SIZE = 32;
-static const size_t EMAIL_SIZE = 255;
 
 class Statement {
     private:
