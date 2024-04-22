@@ -1,4 +1,5 @@
 #include "Row.h"
+#include <iostream>
 
 Row::Row() : id_(0) {
     std::memset(username_, 0, USERNAME_SIZE);
