@@ -19,3 +19,18 @@ void Table::select() {
         row.print_row();
     }    
 }
+
+Table::Table(): num_rows_(0) {
+    for (uint32_t i = 0; i < TABLE_MAX_PAGES; i++) {
+        pages_[i] = nullptr;
+    }
+}
+
+Table::~Table() {
+    for (uint32_t i = 0; i < TABLE_MAX_PAGES; i++) {
+        if (pages_[i] != nullptr) {
+            free(pages_[i]);
+            pages_[i] = nullptr;
+        }
+    }
+}
