@@ -58,15 +58,26 @@ PrepareResult Statement::prepareStatement(const std::string& input) {
     return PrepareResult::PREPARE_UNRECOGNIZED_STATEMENT;
 }
 
-ExecuteResult Statement::executeStatement() {
+ExecuteResult Statement::executeStatement(Table* table) {
     switch (statement_type_) {
         case (StatementType::INSERT):
-            std::cout << "Insert succesful.\n";
-            return ExecuteResult::EXECUTE_SUCCESS;
+            return execute_insert(table);
         case (StatementType::SELECT):
-            std::cout << "Select succesful.\n";
-            return ExecuteResult::EXECUTE_SUCCESS;
+            return execute_select(table);
     }
     std::cout << "Error: Table full.\n";
     return ExecuteResult::EXECUTE_TABLE_FULL;
+}
+
+ExecuteResult Statement::execute_insert(Table* table) {
+    if (table->insert(row_)) {
+        return ExecuteResult::EXECUTE_SUCCESS;
+    } else {
+        return ExecuteResult::EXECUTE_TABLE_FULL;
+    }
+}
+
+ExecuteResult Statement::execute_select(Table* table) {
+    table->select();
+    return ExecuteResult::EXECUTE_SUCCESS;
 }

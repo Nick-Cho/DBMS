@@ -9,9 +9,9 @@ static const size_t EMAIL_SIZE = 255;
 class Row {
     public:
         Row();
-
-        void serialize_row(Row* source, void* destination);
-        void deserialize_row(void* source, Row* destination);
+        void print_row() const;
+        void serialize_row( void* destination) const;
+        void deserialize_row(void* source);
     private:
         uint32_t id_;
         char username_[USERNAME_SIZE];
