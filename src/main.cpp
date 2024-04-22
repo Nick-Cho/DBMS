@@ -17,12 +17,17 @@ MetaCommandResult execMetaCommand(InputBuffer* input_buffer) {
 }
 
 int main(int argc, char* argv[]) {
+	
 	InputBuffer* input_buffer = InputBuffer::getBufferInstance();
+	Table* table = new Table();
+
 	while (true) {
+		// Reading input for database transaction
 		input_buffer->printPrompt();
 		input_buffer->readInput(std::cin);
 		std::string input = input_buffer->getBuffer();
 
+		// Input error handling
 		if (input == ".") {								
 			switch (execMetaCommand(input_buffer)){
 				case (META_COMMAND_SUCCESS):
@@ -31,19 +36,31 @@ int main(int argc, char* argv[]) {
 					printf("Unrecognized command '%s'. \n", input.c_str());
 					continue;
 			}
+
+			// Parsing and validating database transaction request
 			Statement statement;
+			
 			switch (statement.prepareStatement(input)) {
 				case (PrepareResult::PREPARE_SUCCESS):
 					break;
 				case (PrepareResult::PREPARE_SYNTAX_ERROR):
 					printf("Syntax error. Could not parse statement. \n");
-					continue;
+					continue;				
 				case (PrepareResult::PREPARE_UNRECOGNIZED_STATEMENT):
 					printf("Unrecognized keyword at start of '%s'. \n", input.c_str());
 					continue;
 			}
 
-			statement.executeStatement();
+			// Executing database transaction
+			switch (statement.executeStatement(table)) {
+				case (ExecuteResult::EXECUTE_SUCCESS):
+					printf("Executed. \n");
+					break;
+				case (ExecuteResult::EXECUTE_TABLE_FULL):
+					printf("Error: Table full. \n");
+					break;
+			}
+
 			printf("Executed. \n");
 		} else {
 			printf("Unrecognized command '%s'. \n", input.c_str());
