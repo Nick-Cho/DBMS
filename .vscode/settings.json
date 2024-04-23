@@ -40,5 +40,6 @@
         "typeinfo": "cpp",
         "variant": "cpp",
         "algorithm": "cpp"
-    }
+    },
+    "cmake.configureOnOpen": true
 }

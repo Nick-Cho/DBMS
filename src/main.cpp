@@ -1,5 +1,5 @@
-#include "./lib/inputBuffer/InputBuffer.h"
-#include "./lib/statement/Statement.h"
+#include "./inputBuffer/include/InputBuffer.h"
+#include "./statement/include/Statement.h"
 
 #include <iostream>
 
