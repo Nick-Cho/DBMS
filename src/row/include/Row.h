@@ -10,8 +10,8 @@ class Row {
     public:
         Row();
         void print_row() const;
-        void serialize_row( void* destination) const;
-        void deserialize_row(void* source);
+        void serialize_row( char* destination) const;
+        void deserialize_row(const char* source);
     private:
         uint32_t id_;
         char username_[USERNAME_SIZE];

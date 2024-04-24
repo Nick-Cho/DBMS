@@ -6,16 +6,16 @@ Row::Row() : id_(0) {
     std::memset(email_, 0, EMAIL_SIZE);
 }
 
-void Row::serialize_row(void* destination) const {
+void Row::serialize_row(char* destination) const {
     std::memcpy(destination, &(id_), sizeof(id_));
-    std::memcpy(destination + sizeof(id_), &(username_), USERNAME_SIZE);
-    std::memcpy(destination + sizeof(id_) + sizeof(username_), &(email_), EMAIL_SIZE);
+    std::memcpy(destination + sizeof(id_), &(username_), sizeof(username_));
+    std::memcpy(destination + sizeof(id_) + sizeof(username_), &(email_), sizeof(email_));
 }
 
-void Row::deserialize_row(void* source) {
+void Row::deserialize_row(const char* source) {
     std::memcpy(&(id_), source, sizeof(id_));
-    std::memcpy(&(username_), source + sizeof(id_), USERNAME_SIZE);
-    std::memcpy(&(email_), source + sizeof(id_) + USERNAME_SIZE, EMAIL_SIZE);
+    std::memcpy(&(username_), source + sizeof(id_), sizeof(username_));
+    std::memcpy(&(email_), source + sizeof(id_) + sizeof(username_), sizeof(email_));
 }
 
 void Row::print_row() const {
