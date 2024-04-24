@@ -7,7 +7,7 @@ bool Table::insert(const Row& row) {
         return false;
     }
 
-    row.serialize_row(row_slot(num_rows_));
+    row.serialize_row(static_cast<char*>(row_slot(num_rows_)));
     num_rows_++;
     return true;
 }
@@ -15,7 +15,7 @@ bool Table::insert(const Row& row) {
 void Table::select() {
     Row row;
     for (uint32_t i = 0; i < num_rows_; i++) {
-        row.deserialize_row(row_slot(i));
+        row.deserialize_row(static_cast<char*>(row_slot(i)));
         row.print_row();
     }    
 }
