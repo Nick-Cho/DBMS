@@ -6,6 +6,7 @@
 class InputBuffer {
 	protected:
 		InputBuffer();
+		~InputBuffer();
 	public:
 		static InputBuffer* getBufferInstance();
 
