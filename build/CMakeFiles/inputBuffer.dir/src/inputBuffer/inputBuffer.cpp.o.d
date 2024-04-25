@@ -1,6 +1,6 @@
 CMakeFiles/inputBuffer.dir/src/inputBuffer/inputBuffer.cpp.o: \
   /Users/nickcho/Desktop/Coding/DBMS/src/inputBuffer/inputBuffer.cpp \
-  /Users/nickcho/Desktop/Coding/DBMS/src/inputBuffer/include/InputBuffer.h \
+  /Users/nickcho/Desktop/Coding/DBMS/src/inputBuffer/./include/InputBuffer.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/iostream \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__assert \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__config \

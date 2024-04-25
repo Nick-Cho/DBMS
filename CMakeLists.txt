@@ -1,8 +1,9 @@
 cmake_minimum_required(VERSION 3.10)
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_STANDARD 14)
+# set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 project(DBMS)
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g")
 
 add_library(table STATIC src/table/include/table.h src/table/table.cpp)
 target_include_directories(table PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/table/include)

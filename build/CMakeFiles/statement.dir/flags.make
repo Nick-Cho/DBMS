@@ -6,7 +6,7 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -I/Users/nickcho/Desktop/Coding/DBMS/src/statement/include -I/Users/nickcho/Desktop/Coding/DBMS/src/row/include -I/Users/nickcho/Desktop/Coding/DBMS/src/table/include
 
-CXX_FLAGSarm64 = -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk
+CXX_FLAGSarm64 = -std=gnu++14 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk
 
-CXX_FLAGS = -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk
+CXX_FLAGS = -std=gnu++14 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk
 

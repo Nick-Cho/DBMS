@@ -1,16 +1,17 @@
-#include "InputBuffer.h"
-
-InputBuffer::InputBuffer()
-: buffer_length_(0), input_length_(0), buffer_(nullptr) {}
+#include "./include/InputBuffer.h"
 
 InputBuffer* InputBuffer::_s_input_buffer_ = nullptr;
 
-InputBuffer::~InputBuffer() {
+InputBuffer::InputBuffer()
+: buffer_length_(0), input_length_(0) {}
+
+void InputBuffer::closeBuffer() {
     delete _s_input_buffer_;
     _s_input_buffer_ = nullptr;
 }
 
-InputBuffer* InputBuffer::getBufferInstance() {
+InputBuffer* InputBuffer::getBufferInstance() {    
+    std::cout << "FLAG";
     if (_s_input_buffer_ == nullptr) {
         _s_input_buffer_ = new InputBuffer();
     }

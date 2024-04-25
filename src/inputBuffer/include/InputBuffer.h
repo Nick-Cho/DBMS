@@ -4,12 +4,14 @@
 #include <string>
 
 class InputBuffer {
-	protected:
+	protected:		
 		InputBuffer();
-		~InputBuffer();
+		
+		InputBuffer(const InputBuffer& other) = delete;
+		InputBuffer& operator=(const InputBuffer& other) = delete;
 	public:
+		void closeBuffer();
 		static InputBuffer* getBufferInstance();
-
 		void printPrompt();
 		void readInput(std::istream& in);
 		// void closeInputBuffer(); // Destructor functionality overlap
