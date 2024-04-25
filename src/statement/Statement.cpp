@@ -46,6 +46,9 @@ PrepareResult Statement::prepareStatement(const std::string& input) {
             return PrepareResult::PREPARE_SYNTAX_ERROR;
         }
 
+        row_.set_id(id);
+        row_.set_username(username);
+        row_.set_email(email);
 
         return PrepareResult::PREPARE_SUCCESS;
     }

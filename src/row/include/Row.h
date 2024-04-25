@@ -12,6 +12,9 @@ class Row {
         void print_row() const;
         void serialize_row( char* destination) const;
         void deserialize_row(const char* source);
+        void set_id(uint32_t id);
+        void set_username(const std::string& username);
+        void set_email(const std::string& email);
     private:
         uint32_t id_;
         char username_[USERNAME_SIZE];

@@ -59,8 +59,6 @@ int main(int argc, char* argv[]) {
 				printf("Error: Table full. \n");
 				break;
 		}
-
-		printf("Executed. \n");
 	}
 	return 0;
 }
