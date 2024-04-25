@@ -11,7 +11,6 @@ void InputBuffer::closeBuffer() {
 }
 
 InputBuffer* InputBuffer::getBufferInstance() {    
-    std::cout << "FLAG";
     if (_s_input_buffer_ == nullptr) {
         _s_input_buffer_ = new InputBuffer();
     }

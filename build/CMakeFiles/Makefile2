@@ -191,10 +191,10 @@ CMakeFiles/inputBuffer.dir/clean:
 # Target rules for target CMakeFiles/DBMS.dir
 
 # All Build rule for target.
-CMakeFiles/DBMS.dir/all: CMakeFiles/table.dir/all
-CMakeFiles/DBMS.dir/all: CMakeFiles/row.dir/all
 CMakeFiles/DBMS.dir/all: CMakeFiles/statement.dir/all
 CMakeFiles/DBMS.dir/all: CMakeFiles/inputBuffer.dir/all
+CMakeFiles/DBMS.dir/all: CMakeFiles/table.dir/all
+CMakeFiles/DBMS.dir/all: CMakeFiles/row.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DBMS.dir/build.make CMakeFiles/DBMS.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DBMS.dir/build.make CMakeFiles/DBMS.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/nickcho/Desktop/Coding/DBMS/build/CMakeFiles --progress-num=1,2 "Built target DBMS"
