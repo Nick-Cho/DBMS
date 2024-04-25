@@ -5,6 +5,13 @@ set(CMAKE_CXX_STANDARD 14)
 project(DBMS)
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g")
 
+include(CTest)
+add_subdirectory(test)
+add_subdirectory(lib)
+include_directories(src)
+
+include(UpdateSubmodules.cmake)
+
 add_library(table STATIC src/table/include/table.h src/table/table.cpp)
 target_include_directories(table PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/table/include)
 
