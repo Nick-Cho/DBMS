@@ -35,3 +35,15 @@ void Row::set_email(const std::string& email) {
     std::strncpy(email_, email.c_str(), EMAIL_SIZE);
     this->email_[EMAIL_SIZE] = '\0';
 }
+
+uint32_t Row::get_id() const {
+    return id_;
+}
+
+const char* Row::get_username() const {
+    return username_;
+}   
+
+const char* Row::get_email() const {
+    return email_;
+}
