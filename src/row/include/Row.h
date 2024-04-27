@@ -20,8 +20,8 @@ class Row {
         const char* get_email() const;
     private:
         uint32_t id_;
-        char username_[USERNAME_SIZE];
-        char email_[EMAIL_SIZE];
+        char username_[USERNAME_SIZE + 1]; // +1 for null terminator
+        char email_[EMAIL_SIZE + 1];
     
 };
 #endif
