@@ -2,10 +2,10 @@
 
 #include <iostream>
 
-#include "InputBuffer.h"
-#include "Statement.h"
-#include "Table.h"
-#include "Row.h"
+#include "../src/inputBuffer/include/InputBuffer.h"
+#include "../src/statement/include/Statement.h"
+#include "../src/table/include/Table.h"
+#include "../src/row/include/Row.h"
 
 using namespace std;
 
