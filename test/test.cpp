@@ -61,10 +61,10 @@ TEST(DBTest, rWUnitTest2) {
     ASSERT_STREQ(row.get_username(), username.c_str());
 }
 
-TEST(DBTest, rWEdgeCase) {
+TEST(DBTest, rWEdgeCase1) {
+    // Tests overloading the table edge case
     Table* table = new Table();
-    Statement statement;
-    
+    Statement statement;    
     
     char response[] = "";
     char* response_ptr = response;
@@ -88,4 +88,24 @@ TEST(DBTest, rWEdgeCase) {
     }
 
     ASSERT_STREQ(response_ptr, "Error: Table full.");
+}
+
+TEST(DBTest, rWEdgeCase2) {
+    // Tests overloading row input length edge case
+
+    Statement statement;    
+    string username = string(33, 'a');
+    string email = string(256, 'a');
+
+    string cmd = "insert 1 " + username + " " + email;
+    testing::internal::CaptureStdout();
+    statement.prepareStatement(cmd);
+    std:string output = testing::internal::GetCapturedStdout();
+    ASSERT_EQ(output, std::string("Error: Username is too long.\n"));       
+
+    cmd = "insert 1  foo " + email; 
+    testing::internal::CaptureStdout();
+    statement.prepareStatement(cmd);
+    output = testing::internal::GetCapturedStdout();
+    ASSERT_EQ(output, std::string("Error: Email is too long.\n"));    
 }
