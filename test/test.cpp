@@ -37,5 +37,5 @@ TEST(DBTest, readWrite1) {
     test_row.deserialize_row(static_cast<const char*>(destination));
     test_row.print_row();
     
-    ASSERT_EQ(test_row.get_email(), "foo@bar.com");
+    ASSERT_STREQ(test_row.get_email(), "foo@bar.com"); // ASSERT_EQ checks for pointer equality and not value equality
 }
