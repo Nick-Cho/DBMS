@@ -33,17 +33,17 @@ PrepareResult Statement::prepareStatement(const std::string& input) {
         }
         if (id < 0) {
             std::cout << "Error: ID must be positive.\n";
-            return PrepareResult::PREPARE_SYNTAX_ERROR;
+            return PrepareResult::PREPARE_NEGATIVE_ID;
         }
 
         if (username.length() >  USERNAME_SIZE) {
             std::cout << "Error: Username is too long.\n";
-            return PrepareResult::PREPARE_SYNTAX_ERROR;
+            return PrepareResult::PREPARE_STRING_TOO_LONG;
         }
 
         if (email.length() > EMAIL_SIZE) {
             std::cout << "Error: Email is too long.\n";
-            return PrepareResult::PREPARE_SYNTAX_ERROR;
+            return PrepareResult::PREPARE_STRING_TOO_LONG;
         }
 
         row_.set_id(id);

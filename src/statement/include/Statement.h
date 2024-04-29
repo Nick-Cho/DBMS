@@ -13,6 +13,8 @@ enum class StatementType {
 enum class PrepareResult {
     PREPARE_SUCCESS,
     PREPARE_SYNTAX_ERROR,
+    PREPARE_STRING_TOO_LONG,
+    PREPARE_NEGATIVE_ID,
     PREPARE_UNRECOGNIZED_STATEMENT
 };
 
