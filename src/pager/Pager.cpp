@@ -1,4 +1,5 @@
 #include "./include/Pager.h"
+
 #include <iostream>
 
 Pager::Pager(const std::string &filename): file_length_(0), pages_() {
@@ -52,4 +53,32 @@ void* Pager::getPage(uint32_t page_num) {
 
 std::vector<std::unique_ptr<char[]>>& Pager::getPages() {
     return pages_;
+}
+
+int Pager::close() {
+    file_stream_.close();
+    if (file_stream_.fail()) {
+        return 1;
+    }
+    return 0;
+}
+
+void Pager::flush(uint32_t page_num, uint32_t size) {
+    if (pages_[page_num] == nullptr) {
+        printf("Trying to flush null page\n");
+        exit(EXIT_FAILURE);
+    }
+    
+    file_stream_.seekg(page_num * PAGE_SIZE);
+    if (file_stream_.fail()) {
+        std::cerr << "Error while finding page starting point with seekg (line 74 Pager.cpp) \n";
+    }
+
+    file_stream_.write(pages_[page_num].get(), size);
+    file_stream_.flush();
+
+    if (file_stream_.fail()) {
+        std::cerr << "Error writing to file\n";
+        exit(EXIT_FAILURE);
+    }
 }

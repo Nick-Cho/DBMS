@@ -51,10 +51,6 @@ Table::~Table() {
 void* Table::row_slot(uint32_t row_num) {
     uint32_t page_num = row_num / ROWS_PER_PAGE;
     void* page = pager_->getPage(page_num);
-    if (page == nullptr) {
-        page = pager_->getPage(page_num) = std::make_unique<char[]>(PAGE_SIZE).get();
-    }
-
     uint32_t row_offset = row_num % ROWS_PER_PAGE;
     uint32_t byte_offset = row_offset * sizeof(Row);
     return static_cast<char*>(page) + byte_offset;
@@ -62,4 +58,7 @@ void* Table::row_slot(uint32_t row_num) {
 
 void Table::db_open(const std::string filename) {
     pager_ = std::make_shared<Pager>(filename);
+    // num of rows for full pages + additional rows from partially filled page
+    num_rows_ = ((pager_->getFileLength() / PAGE_SIZE) * ROWS_PER_PAGE) + ((pager_->getFileLength() % PAGE_SIZE) / sizeof(Row));
 }
+
