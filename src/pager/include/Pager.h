@@ -13,9 +13,9 @@ static const uint32_t TABLE_MAX_ROWS = ROWS_PER_PAGE * TABLE_MAX_PAGES;
 
 class Pager {
     private:
-        uint32_t file_length;
-        std::fstream file_stream;
-        std::vector<std::unique_ptr<char[]>> pages;
+        uint32_t file_length_;
+        std::fstream file_stream_;
+        std::vector<std::unique_ptr<char[]>> pages_;
     public:
         Pager(const std::string &filename);
         void* getPage(uint32_t page_num);
