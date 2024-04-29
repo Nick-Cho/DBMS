@@ -20,8 +20,9 @@ class Pager {
         Pager(const std::string &filename);
         void* getPage(uint32_t page_num);
         uint32_t getFileLength();
-        void pagerFlush(uint32_t pagenum, uint32_t size);
+        void flush(uint32_t pagenum, uint32_t size);
         int close();
+        std::vector<std::unique_ptr<char[]>>& getPages();
 };
 
 

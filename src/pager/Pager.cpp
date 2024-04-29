@@ -34,7 +34,7 @@ void* Pager::getPage(uint32_t page_num) {
             if (file_stream_.fail()) {
                 std::cerr << "Error while finding page starting point with seekg (line 35 Pager.cpp) \n";
             }
-            
+
             file_stream_.read(pages_[page_num].get(), PAGE_SIZE);
             if (file_stream_.eof()) {
                 std::cerr << "Reached end of file error while reading file";
@@ -47,4 +47,9 @@ void* Pager::getPage(uint32_t page_num) {
             }
         }
     }
+    return pages_[page_num].get();
+}
+
+std::vector<std::unique_ptr<char[]>>& Pager::getPages() {
+    return pages_;
 }
