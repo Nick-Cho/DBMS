@@ -63,6 +63,10 @@ int Pager::close() {
     return 0;
 }
 
+uint32_t Pager::getFileLength() {
+    return file_length_;
+}
+
 void Pager::flush(uint32_t page_num, uint32_t size) {
     if (pages_[page_num] == nullptr) {
         printf("Trying to flush null page\n");

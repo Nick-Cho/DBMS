@@ -17,8 +17,16 @@ MetaCommandResult execMetaCommand(InputBuffer* input_buffer) {
 }
 
 int main(int argc, char* argv[]) {
+	if (argc < 2) {
+		std::cout << "Must supply a database name\n";
+		exit(EXIT_FAILURE);
+	}
+
+	char* filename = argv[1];
+
 	InputBuffer* input_buffer = InputBuffer::getBufferInstance();
 	Table* table = new Table();
+	table->db_open(filename);
 
 	while (true) {
 		// Reading input for database transaction

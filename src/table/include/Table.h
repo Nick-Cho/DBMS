@@ -11,7 +11,6 @@ class Table {
         void db_open(const std::string filename);
         bool insert(const Row& row);
         void select();
-        void db_close();
     private:
         uint32_t num_rows_;
         std::shared_ptr<Pager> pager_;
