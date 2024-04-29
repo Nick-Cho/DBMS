@@ -21,11 +21,7 @@ void Table::select() {
     }    
 }
 
-Table::Table(): num_rows_(0) {
-    for (uint32_t i = 0; i < TABLE_MAX_PAGES; i++) {
-        pages_[i] = nullptr;
-    }
-}
+Table::Table(): num_rows_(0), pager(nullptr) {}
 
 Table::~Table() {
     for (uint32_t i = 0; i < TABLE_MAX_PAGES; i++) {
@@ -46,4 +42,8 @@ void* Table::row_slot(uint32_t row_num) {
     uint32_t row_offset = row_num % ROWS_PER_PAGE;
     uint32_t byte_offset = row_offset * sizeof(Row);
     return static_cast<char*>(page) + byte_offset;
+}
+
+void Table::db_open(const std::string filename) {
+    pager_ = std::make_shared<Pager>(filename);
 }
