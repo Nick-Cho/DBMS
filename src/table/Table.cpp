@@ -1,6 +1,7 @@
 #include "./include/Table.h"
 #include <iostream>
 #include "../row/include/Row.h"
+#include "../pager/include/Pager.h"
 
 bool Table::insert(const Row& row) {
     if (num_rows_ >= TABLE_MAX_ROWS) {
