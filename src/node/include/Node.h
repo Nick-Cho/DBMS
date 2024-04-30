@@ -36,4 +36,16 @@ const uint32_t LEAF_NODE_VALUE_OFFSET = LEAF_NODE_KEY_OFFSET + LEAF_NODE_KEY_SIZ
 const uint32_t LEAF_NODE_CELL_SIZE = LEAF_NODE_KEY_SIZE + LEAF_NODE_VALUE_SIZE;
 const uint32_t LEAF_NODE_SPACE_FOR_CELLS = PAGE_SIZE - LEAF_NODE_HEADER_SIZE;
 const uint32_t LEAF_NODE_MAX_CELLS = LEAF_NODE_SPACE_FOR_CELLS / LEAF_NODE_CELL_SIZE;
+
+class Node {
+    private:
+        void *node_;
+    public:
+        Node(void *node);
+        uint32_t leafNodeNumCells();
+        void* leafNodeCell(uint32_t cell_num);
+        uint32_t* leafNodeKey(uint32_t cell_num);
+        void* leafNodeValue(uint32_t cell_num);        
+};
+
 #endif
