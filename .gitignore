@@ -1,6 +1,10 @@
 # Prerequisites
 *.d
 
+# Cmake Files
+*.cmake
+*.tcl
+
 # Compiled Object files
 *.slo
 *.lo
@@ -32,4 +36,7 @@
 *.app
 
 .vscode
-/build/
+./build/CMakeFiles/*
+./build/Testing/Temporary/*
+./build/_deps/*
+./build/lib/*

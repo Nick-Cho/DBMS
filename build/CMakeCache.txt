@@ -359,6 +359,9 @@ SITE:STRING=nicks-mbp
 //Check submodules during build
 UPDATE_SUBMODULES:BOOL=ON
 
+//Dependencies for the target
+cursor_LIB_DEPENDS:STATIC=general;table;
+
 //Value Computed by CMake
 gmock_BINARY_DIR:STATIC=/Users/nickcho/Desktop/Coding/DBMS/build/lib/googletest/googlemock
 
@@ -415,7 +418,7 @@ row_LIB_DEPENDS:STATIC=general;table;
 statement_LIB_DEPENDS:STATIC=general;row;general;table;
 
 //Dependencies for the target
-table_LIB_DEPENDS:STATIC=general;pager;
+table_LIB_DEPENDS:STATIC=general;pager;general;cursor;
 
 
 ########################

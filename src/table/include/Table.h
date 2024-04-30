@@ -3,8 +3,11 @@
 
 #include "../../row/include/Row.h"
 #include "../../pager/include/Pager.h"
+#include "../../cursor/include/Cursor.h"
+
 #include <string>
 
+class Cursor;
 class Table {
     public:
         Table();
@@ -12,6 +15,9 @@ class Table {
         void db_open(const std::string filename);
         bool insert(const Row& row);
         void select();
+        Cursor tableStart();
+        Cursor tableEnd();
+        uint32_t getNumRows();
     private:
         uint32_t num_rows_;
         std::shared_ptr<Pager> pager_;

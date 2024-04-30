@@ -1,0 +1,2 @@
+/Library/Developer/CommandLineTools/usr/bin/ar qc libpager.a CMakeFiles/pager.dir/src/pager/pager.cpp.o
+/Library/Developer/CommandLineTools/usr/bin/ranlib libpager.a

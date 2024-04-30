@@ -536,6 +536,19 @@ ContinuousSubmit/fast:
 .PHONY : ContinuousSubmit/fast
 
 #=============================================================================
+# Target rules for targets named cursor
+
+# Build rule for target.
+cursor: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 cursor
+.PHONY : cursor
+
+# fast build rule for target.
+cursor/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cursor.dir/build.make CMakeFiles/cursor.dir/build
+.PHONY : cursor/fast
+
+#=============================================================================
 # Target rules for targets named table
 
 # Build rule for target.
@@ -677,6 +690,30 @@ gtest_main: cmake_check_build_system
 gtest_main/fast:
 	$(MAKE) $(MAKESILENT) -f lib/googletest/googletest/CMakeFiles/gtest_main.dir/build.make lib/googletest/googletest/CMakeFiles/gtest_main.dir/build
 .PHONY : gtest_main/fast
+
+src/cursor/cursor.o: src/cursor/cursor.cpp.o
+.PHONY : src/cursor/cursor.o
+
+# target to build an object file
+src/cursor/cursor.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cursor.dir/build.make CMakeFiles/cursor.dir/src/cursor/cursor.cpp.o
+.PHONY : src/cursor/cursor.cpp.o
+
+src/cursor/cursor.i: src/cursor/cursor.cpp.i
+.PHONY : src/cursor/cursor.i
+
+# target to preprocess a source file
+src/cursor/cursor.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cursor.dir/build.make CMakeFiles/cursor.dir/src/cursor/cursor.cpp.i
+.PHONY : src/cursor/cursor.cpp.i
+
+src/cursor/cursor.s: src/cursor/cursor.cpp.s
+.PHONY : src/cursor/cursor.s
+
+# target to generate assembly for a file
+src/cursor/cursor.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cursor.dir/build.make CMakeFiles/cursor.dir/src/cursor/cursor.cpp.s
+.PHONY : src/cursor/cursor.cpp.s
 
 src/inputBuffer/inputBuffer.o: src/inputBuffer/inputBuffer.cpp.o
 .PHONY : src/inputBuffer/inputBuffer.o
@@ -865,6 +902,7 @@ help:
 	@echo "... NightlyUpdate"
 	@echo "... DBMS"
 	@echo "... DBMS_test"
+	@echo "... cursor"
 	@echo "... gmock"
 	@echo "... gmock_main"
 	@echo "... gtest"
@@ -874,6 +912,9 @@ help:
 	@echo "... row"
 	@echo "... statement"
 	@echo "... table"
+	@echo "... src/cursor/cursor.o"
+	@echo "... src/cursor/cursor.i"
+	@echo "... src/cursor/cursor.s"
 	@echo "... src/inputBuffer/inputBuffer.o"
 	@echo "... src/inputBuffer/inputBuffer.i"
 	@echo "... src/inputBuffer/inputBuffer.s"

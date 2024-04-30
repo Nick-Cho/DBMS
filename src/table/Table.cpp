@@ -1,24 +1,30 @@
 #include "./include/Table.h"
-#include <iostream>
 #include "../row/include/Row.h"
 #include "../pager/include/Pager.h"
+#include "../cursor/include/Cursor.h"
+
+#include <iostream>
+
 
 bool Table::insert(const Row& row) {
     if (num_rows_ >= TABLE_MAX_ROWS) {
         return false;
     }
-
-    row.serialize_row(static_cast<char*>(row_slot(num_rows_)));
+    Cursor cursor = this->tableEnd();
+    row.serialize_row(static_cast<char*>(row_slot(cursor.getRowNum())));
     num_rows_++;
     return true;
 }
 
 void Table::select() {
+    Cursor cursor = tableStart();
     Row row;
-    for (uint32_t i = 0; i < num_rows_; i++) {
-        row.deserialize_row(static_cast<char*>(row_slot(i)));
+    while (!cursor.isTableEnd()) {
+        row.deserialize_row(static_cast<char*>(row_slot(cursor.getRowNum())));
         row.print_row();
-    }    
+        ++cursor;
+    }
+    
 }
 
 Table::Table(): num_rows_(0), pager_(nullptr) {}
@@ -62,3 +68,14 @@ void Table::db_open(const std::string filename) {
     num_rows_ = ((pager_->getFileLength() / PAGE_SIZE) * ROWS_PER_PAGE) + ((pager_->getFileLength() % PAGE_SIZE) / sizeof(Row));
 }
 
+Cursor Table::tableStart() {
+    return Cursor(this, 0);
+}
+
+Cursor Table::tableEnd() {
+    return Cursor(this, num_rows_);
+}
+
+uint32_t Table::getNumRows() {
+    return num_rows_;
+}

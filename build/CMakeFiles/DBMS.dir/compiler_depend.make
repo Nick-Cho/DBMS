@@ -873,6 +873,8 @@ CMakeFiles/DBMS.dir/src/main.cpp.o: /Users/nickcho/Desktop/Coding/DBMS/src/main.
   /Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include/stdint.h \
   /Users/nickcho/Desktop/Coding/DBMS/src/inputBuffer/include/InputBuffer.h \
   /Users/nickcho/Desktop/Coding/DBMS/src/row/include/Row.h \
+  /Users/nickcho/Desktop/Coding/DBMS/src/table/include/Table.h \
+  /Users/nickcho/Desktop/Coding/DBMS/src/cursor/include/Cursor.h \
   /Users/nickcho/Desktop/Coding/DBMS/src/row/include/Row.h \
   /Users/nickcho/Desktop/Coding/DBMS/src/pager/include/Pager.h \
   /Users/nickcho/Desktop/Coding/DBMS/src/row/include/Row.h \
@@ -880,9 +882,9 @@ CMakeFiles/DBMS.dir/src/main.cpp.o: /Users/nickcho/Desktop/Coding/DBMS/src/main.
   /Users/nickcho/Desktop/Coding/DBMS/src/statement/include/Statement.h
 
 
-/Users/nickcho/Desktop/Coding/DBMS/src/table/include/Table.h:
-
 /Users/nickcho/Desktop/Coding/DBMS/src/pager/include/Pager.h:
+
+/Users/nickcho/Desktop/Coding/DBMS/src/table/include/Table.h:
 
 /Users/nickcho/Desktop/Coding/DBMS/src/inputBuffer/include/InputBuffer.h:
 
@@ -1099,6 +1101,8 @@ CMakeFiles/DBMS.dir/src/main.cpp.o: /Users/nickcho/Desktop/Coding/DBMS/src/main.
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/sift_down.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/cstring:
+
+/Users/nickcho/Desktop/Coding/DBMS/src/cursor/include/Cursor.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/cstdio:
 

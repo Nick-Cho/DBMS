@@ -872,10 +872,12 @@ CMakeFiles/statement.dir/src/statement/statement.cpp.o: /Users/nickcho/Desktop/C
   /Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include/stdarg.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include/stddef.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include/stdint.h \
+  /Users/nickcho/Desktop/Coding/DBMS/src/table/include/Table.h \
   /Users/nickcho/Desktop/Coding/DBMS/src/row/include/Row.h \
   /Users/nickcho/Desktop/Coding/DBMS/src/row/include/Row.h \
   /Users/nickcho/Desktop/Coding/DBMS/src/table/include/Table.h \
   /Users/nickcho/Desktop/Coding/DBMS/src/statement/include/Statement.h \
+  /Users/nickcho/Desktop/Coding/DBMS/src/cursor/include/Cursor.h \
   /Users/nickcho/Desktop/Coding/DBMS/src/pager/include/Pager.h \
   /Users/nickcho/Desktop/Coding/DBMS/src/row/include/Row.h
 
@@ -1097,6 +1099,8 @@ CMakeFiles/statement.dir/src/statement/statement.cpp.o: /Users/nickcho/Desktop/C
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/sift_down.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/cstring:
+
+/Users/nickcho/Desktop/Coding/DBMS/src/cursor/include/Cursor.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/cstdio:
 
