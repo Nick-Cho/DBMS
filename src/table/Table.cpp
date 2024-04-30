@@ -72,3 +72,7 @@ Cursor Table::tableStart() {
 Cursor Table::tableEnd() {
     return Cursor(this, num_rows_);
 }
+
+uint32_t Table::getNumRows() {
+    return num_rows_;
+}
