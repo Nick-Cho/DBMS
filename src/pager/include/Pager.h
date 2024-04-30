@@ -1,5 +1,5 @@
 #ifndef PAGER_H
-#define STATEMENT_H
+#define PAGER_H
 
 #include "../../row/include/Row.h"
 #include <iostream>

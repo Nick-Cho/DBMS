@@ -4,7 +4,7 @@
 # compile CXX with /Library/Developer/CommandLineTools/usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/Users/nickcho/Desktop/Coding/DBMS/src -I/Users/nickcho/Desktop/Coding/DBMS/src/row/include -I/Users/nickcho/Desktop/Coding/DBMS/src/table/include
+CXX_INCLUDES = -I/Users/nickcho/Desktop/Coding/DBMS/src -I/Users/nickcho/Desktop/Coding/DBMS/src/row/include -I/Users/nickcho/Desktop/Coding/DBMS/src/table/include -I/Users/nickcho/Desktop/Coding/DBMS/src/pager/include
 
 CXX_FLAGSarm64 = -std=gnu++14 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk
 

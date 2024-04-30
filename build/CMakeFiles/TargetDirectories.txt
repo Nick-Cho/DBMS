@@ -28,6 +28,7 @@
 /Users/nickcho/Desktop/Coding/DBMS/build/CMakeFiles/ContinuousSubmit.dir
 /Users/nickcho/Desktop/Coding/DBMS/build/CMakeFiles/table.dir
 /Users/nickcho/Desktop/Coding/DBMS/build/CMakeFiles/row.dir
+/Users/nickcho/Desktop/Coding/DBMS/build/CMakeFiles/pager.dir
 /Users/nickcho/Desktop/Coding/DBMS/build/CMakeFiles/statement.dir
 /Users/nickcho/Desktop/Coding/DBMS/build/CMakeFiles/inputBuffer.dir
 /Users/nickcho/Desktop/Coding/DBMS/build/CMakeFiles/DBMS.dir

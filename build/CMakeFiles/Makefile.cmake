@@ -119,6 +119,7 @@ set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/ContinuousSubmit.dir/DependInfo.cmake"
   "CMakeFiles/table.dir/DependInfo.cmake"
   "CMakeFiles/row.dir/DependInfo.cmake"
+  "CMakeFiles/pager.dir/DependInfo.cmake"
   "CMakeFiles/statement.dir/DependInfo.cmake"
   "CMakeFiles/inputBuffer.dir/DependInfo.cmake"
   "CMakeFiles/DBMS.dir/DependInfo.cmake"

@@ -21,6 +21,7 @@ void* Pager::getPage(uint32_t page_num) {
         exit(EXIT_FAILURE);
     }
 
+    // std::cout << "Page num debug log: " << page_num;
     if (pages_[page_num] == nullptr) {
         // Cache miss, so allocate new memory and load from file
         pages_[page_num] = std::make_unique<char[]>(PAGE_SIZE);
@@ -38,7 +39,8 @@ void* Pager::getPage(uint32_t page_num) {
 
             file_stream_.read(pages_[page_num].get(), PAGE_SIZE);
             if (file_stream_.eof()) {
-                std::cerr << "Reached end of file error while reading file";
+                // EOF triggers when reaching end of file so accessing the last page will trigger this
+                // std::cerr << "Reached end of file error while reading file"; 
                 file_stream_.clear(); //resets error flags
             }
             

@@ -2,12 +2,13 @@
 #define TABLE_H
 
 #include "../../row/include/Row.h"
+#include "../../pager/include/Pager.h"
 #include <string>
 
 class Table {
     public:
         Table();
-        ~Table();
+        void db_close();
         void db_open(const std::string filename);
         bool insert(const Row& row);
         void select();
