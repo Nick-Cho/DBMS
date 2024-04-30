@@ -63,6 +63,7 @@ CMAKE_BINARY_DIR = /Users/nickcho/Desktop/Coding/DBMS/build
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
+all: CMakeFiles/cursor.dir/all
 all: CMakeFiles/table.dir/all
 all: CMakeFiles/row.dir/all
 all: CMakeFiles/pager.dir/all
@@ -107,6 +108,7 @@ clean: CMakeFiles/ContinuousTest.dir/clean
 clean: CMakeFiles/ContinuousCoverage.dir/clean
 clean: CMakeFiles/ContinuousMemCheck.dir/clean
 clean: CMakeFiles/ContinuousSubmit.dir/clean
+clean: CMakeFiles/cursor.dir/clean
 clean: CMakeFiles/table.dir/clean
 clean: CMakeFiles/row.dir/clean
 clean: CMakeFiles/pager.dir/clean
@@ -927,13 +929,39 @@ CMakeFiles/ContinuousSubmit.dir/clean:
 .PHONY : CMakeFiles/ContinuousSubmit.dir/clean
 
 #=============================================================================
+# Target rules for target CMakeFiles/cursor.dir
+
+# All Build rule for target.
+CMakeFiles/cursor.dir/all: CMakeFiles/table.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cursor.dir/build.make CMakeFiles/cursor.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cursor.dir/build.make CMakeFiles/cursor.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/nickcho/Desktop/Coding/DBMS/build/CMakeFiles --progress-num=6,7 "Built target cursor"
+.PHONY : CMakeFiles/cursor.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/cursor.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/nickcho/Desktop/Coding/DBMS/build/CMakeFiles 8
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/cursor.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/nickcho/Desktop/Coding/DBMS/build/CMakeFiles 0
+.PHONY : CMakeFiles/cursor.dir/rule
+
+# Convenience name for target.
+cursor: CMakeFiles/cursor.dir/rule
+.PHONY : cursor
+
+# clean rule for target.
+CMakeFiles/cursor.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cursor.dir/build.make CMakeFiles/cursor.dir/clean
+.PHONY : CMakeFiles/cursor.dir/clean
+
+#=============================================================================
 # Target rules for target CMakeFiles/table.dir
 
 # All Build rule for target.
 CMakeFiles/table.dir/all: CMakeFiles/row.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/table.dir/build.make CMakeFiles/table.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/table.dir/build.make CMakeFiles/table.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/nickcho/Desktop/Coding/DBMS/build/CMakeFiles --progress-num=22,23 "Built target table"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/nickcho/Desktop/Coding/DBMS/build/CMakeFiles --progress-num=24,25 "Built target table"
 .PHONY : CMakeFiles/table.dir/all
 
 # Build rule for subdir invocation for target.
@@ -959,7 +987,7 @@ CMakeFiles/table.dir/clean:
 CMakeFiles/row.dir/all: CMakeFiles/pager.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/row.dir/build.make CMakeFiles/row.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/row.dir/build.make CMakeFiles/row.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/nickcho/Desktop/Coding/DBMS/build/CMakeFiles --progress-num=18,19 "Built target row"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/nickcho/Desktop/Coding/DBMS/build/CMakeFiles --progress-num=20,21 "Built target row"
 .PHONY : CMakeFiles/row.dir/all
 
 # Build rule for subdir invocation for target.
@@ -985,7 +1013,7 @@ CMakeFiles/row.dir/clean:
 CMakeFiles/pager.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/pager.dir/build.make CMakeFiles/pager.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/pager.dir/build.make CMakeFiles/pager.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/nickcho/Desktop/Coding/DBMS/build/CMakeFiles --progress-num=16,17 "Built target pager"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/nickcho/Desktop/Coding/DBMS/build/CMakeFiles --progress-num=18,19 "Built target pager"
 .PHONY : CMakeFiles/pager.dir/all
 
 # Build rule for subdir invocation for target.
@@ -1008,15 +1036,15 @@ CMakeFiles/pager.dir/clean:
 # Target rules for target CMakeFiles/statement.dir
 
 # All Build rule for target.
-CMakeFiles/statement.dir/all: CMakeFiles/table.dir/all
+CMakeFiles/statement.dir/all: CMakeFiles/cursor.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/statement.dir/build.make CMakeFiles/statement.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/statement.dir/build.make CMakeFiles/statement.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/nickcho/Desktop/Coding/DBMS/build/CMakeFiles --progress-num=20,21 "Built target statement"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/nickcho/Desktop/Coding/DBMS/build/CMakeFiles --progress-num=22,23 "Built target statement"
 .PHONY : CMakeFiles/statement.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/statement.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/nickcho/Desktop/Coding/DBMS/build/CMakeFiles 8
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/nickcho/Desktop/Coding/DBMS/build/CMakeFiles 10
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/statement.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/nickcho/Desktop/Coding/DBMS/build/CMakeFiles 0
 .PHONY : CMakeFiles/statement.dir/rule
@@ -1037,7 +1065,7 @@ CMakeFiles/statement.dir/clean:
 CMakeFiles/inputBuffer.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/inputBuffer.dir/build.make CMakeFiles/inputBuffer.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/inputBuffer.dir/build.make CMakeFiles/inputBuffer.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/nickcho/Desktop/Coding/DBMS/build/CMakeFiles --progress-num=14,15 "Built target inputBuffer"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/nickcho/Desktop/Coding/DBMS/build/CMakeFiles --progress-num=16,17 "Built target inputBuffer"
 .PHONY : CMakeFiles/inputBuffer.dir/all
 
 # Build rule for subdir invocation for target.
@@ -1060,7 +1088,7 @@ CMakeFiles/inputBuffer.dir/clean:
 # Target rules for target CMakeFiles/DBMS.dir
 
 # All Build rule for target.
-CMakeFiles/DBMS.dir/all: CMakeFiles/table.dir/all
+CMakeFiles/DBMS.dir/all: CMakeFiles/cursor.dir/all
 CMakeFiles/DBMS.dir/all: CMakeFiles/statement.dir/all
 CMakeFiles/DBMS.dir/all: CMakeFiles/inputBuffer.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DBMS.dir/build.make CMakeFiles/DBMS.dir/depend
@@ -1070,7 +1098,7 @@ CMakeFiles/DBMS.dir/all: CMakeFiles/inputBuffer.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/DBMS.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/nickcho/Desktop/Coding/DBMS/build/CMakeFiles 12
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/nickcho/Desktop/Coding/DBMS/build/CMakeFiles 14
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/DBMS.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/nickcho/Desktop/Coding/DBMS/build/CMakeFiles 0
 .PHONY : CMakeFiles/DBMS.dir/rule
@@ -1088,7 +1116,7 @@ CMakeFiles/DBMS.dir/clean:
 # Target rules for target test/CMakeFiles/DBMS_test.dir
 
 # All Build rule for target.
-test/CMakeFiles/DBMS_test.dir/all: CMakeFiles/table.dir/all
+test/CMakeFiles/DBMS_test.dir/all: CMakeFiles/cursor.dir/all
 test/CMakeFiles/DBMS_test.dir/all: CMakeFiles/statement.dir/all
 test/CMakeFiles/DBMS_test.dir/all: CMakeFiles/inputBuffer.dir/all
 test/CMakeFiles/DBMS_test.dir/all: lib/googletest/googletest/CMakeFiles/gtest.dir/all
@@ -1100,7 +1128,7 @@ test/CMakeFiles/DBMS_test.dir/all: lib/googletest/googletest/CMakeFiles/gtest_ma
 
 # Build rule for subdir invocation for target.
 test/CMakeFiles/DBMS_test.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/nickcho/Desktop/Coding/DBMS/build/CMakeFiles 17
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/nickcho/Desktop/Coding/DBMS/build/CMakeFiles 19
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/DBMS_test.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/nickcho/Desktop/Coding/DBMS/build/CMakeFiles 0
 .PHONY : test/CMakeFiles/DBMS_test.dir/rule
@@ -1121,7 +1149,7 @@ test/CMakeFiles/DBMS_test.dir/clean:
 lib/googletest/googlemock/CMakeFiles/gmock.dir/all: lib/googletest/googletest/CMakeFiles/gtest.dir/all
 	$(MAKE) $(MAKESILENT) -f lib/googletest/googlemock/CMakeFiles/gmock.dir/build.make lib/googletest/googlemock/CMakeFiles/gmock.dir/depend
 	$(MAKE) $(MAKESILENT) -f lib/googletest/googlemock/CMakeFiles/gmock.dir/build.make lib/googletest/googlemock/CMakeFiles/gmock.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/nickcho/Desktop/Coding/DBMS/build/CMakeFiles --progress-num=6,7 "Built target gmock"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/nickcho/Desktop/Coding/DBMS/build/CMakeFiles --progress-num=8,9 "Built target gmock"
 .PHONY : lib/googletest/googlemock/CMakeFiles/gmock.dir/all
 
 # Build rule for subdir invocation for target.
@@ -1148,7 +1176,7 @@ lib/googletest/googlemock/CMakeFiles/gmock_main.dir/all: lib/googletest/googlemo
 lib/googletest/googlemock/CMakeFiles/gmock_main.dir/all: lib/googletest/googletest/CMakeFiles/gtest.dir/all
 	$(MAKE) $(MAKESILENT) -f lib/googletest/googlemock/CMakeFiles/gmock_main.dir/build.make lib/googletest/googlemock/CMakeFiles/gmock_main.dir/depend
 	$(MAKE) $(MAKESILENT) -f lib/googletest/googlemock/CMakeFiles/gmock_main.dir/build.make lib/googletest/googlemock/CMakeFiles/gmock_main.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/nickcho/Desktop/Coding/DBMS/build/CMakeFiles --progress-num=8,9 "Built target gmock_main"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/nickcho/Desktop/Coding/DBMS/build/CMakeFiles --progress-num=10,11 "Built target gmock_main"
 .PHONY : lib/googletest/googlemock/CMakeFiles/gmock_main.dir/all
 
 # Build rule for subdir invocation for target.
@@ -1174,7 +1202,7 @@ lib/googletest/googlemock/CMakeFiles/gmock_main.dir/clean:
 lib/googletest/googletest/CMakeFiles/gtest.dir/all:
 	$(MAKE) $(MAKESILENT) -f lib/googletest/googletest/CMakeFiles/gtest.dir/build.make lib/googletest/googletest/CMakeFiles/gtest.dir/depend
 	$(MAKE) $(MAKESILENT) -f lib/googletest/googletest/CMakeFiles/gtest.dir/build.make lib/googletest/googletest/CMakeFiles/gtest.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/nickcho/Desktop/Coding/DBMS/build/CMakeFiles --progress-num=10,11 "Built target gtest"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/nickcho/Desktop/Coding/DBMS/build/CMakeFiles --progress-num=12,13 "Built target gtest"
 .PHONY : lib/googletest/googletest/CMakeFiles/gtest.dir/all
 
 # Build rule for subdir invocation for target.
@@ -1200,7 +1228,7 @@ lib/googletest/googletest/CMakeFiles/gtest.dir/clean:
 lib/googletest/googletest/CMakeFiles/gtest_main.dir/all: lib/googletest/googletest/CMakeFiles/gtest.dir/all
 	$(MAKE) $(MAKESILENT) -f lib/googletest/googletest/CMakeFiles/gtest_main.dir/build.make lib/googletest/googletest/CMakeFiles/gtest_main.dir/depend
 	$(MAKE) $(MAKESILENT) -f lib/googletest/googletest/CMakeFiles/gtest_main.dir/build.make lib/googletest/googletest/CMakeFiles/gtest_main.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/nickcho/Desktop/Coding/DBMS/build/CMakeFiles --progress-num=12,13 "Built target gtest_main"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/nickcho/Desktop/Coding/DBMS/build/CMakeFiles --progress-num=14,15 "Built target gtest_main"
 .PHONY : lib/googletest/googletest/CMakeFiles/gtest_main.dir/all
 
 # Build rule for subdir invocation for target.

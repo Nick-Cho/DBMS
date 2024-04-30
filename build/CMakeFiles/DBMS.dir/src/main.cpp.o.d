@@ -875,4 +875,6 @@ CMakeFiles/DBMS.dir/src/main.cpp.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__filesystem/directory_options.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__filesystem/path_iterator.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__filesystem/recursive_directory_iterator.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__filesystem/u8path.h
+  /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__filesystem/u8path.h \
+  /Users/nickcho/Desktop/Coding/DBMS/src/./statement/include/../../table/include/../../cursor/include/Cursor.h \
+  /Users/nickcho/Desktop/Coding/DBMS/src/./statement/include/../../table/include/../../cursor/include/../../table/include/Table.h

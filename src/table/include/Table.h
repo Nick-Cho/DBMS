@@ -7,6 +7,7 @@
 
 #include <string>
 
+class Cursor;
 class Table {
     public:
         Table();
