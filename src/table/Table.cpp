@@ -1,7 +1,10 @@
 #include "./include/Table.h"
-#include <iostream>
 #include "../row/include/Row.h"
 #include "../pager/include/Pager.h"
+#include "../cursor/include/Cursor.h"
+
+#include <iostream>
+
 
 bool Table::insert(const Row& row) {
     if (num_rows_ >= TABLE_MAX_ROWS) {
@@ -62,3 +65,10 @@ void Table::db_open(const std::string filename) {
     num_rows_ = ((pager_->getFileLength() / PAGE_SIZE) * ROWS_PER_PAGE) + ((pager_->getFileLength() % PAGE_SIZE) / sizeof(Row));
 }
 
+Cursor Table::tableStart() {
+    return Cursor(this, 0);
+}
+
+Cursor Table::tableEnd() {
+    return Cursor(this, num_rows_);
+}
