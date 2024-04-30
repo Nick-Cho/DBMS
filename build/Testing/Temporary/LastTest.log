@@ -1,0 +1,140 @@
+Start testing: Apr 29 11:32 EDT
+----------------------------------------------------------
+1/5 Testing: DBTest.rWUnitTest1
+1/5 Test: DBTest.rWUnitTest1
+Command: "/Users/nickcho/Desktop/Coding/DBMS/build/test/DBMS_test" "--gtest_filter=DBTest.rWUnitTest1" "--gtest_also_run_disabled_tests"
+Directory: /Users/nickcho/Desktop/Coding/DBMS/build/test
+"DBTest.rWUnitTest1" start time: Apr 29 11:32 EDT
+Output:
+----------------------------------------------------------
+[0;33mNote: Google Test filter = DBTest.rWUnitTest1
+[m[0;32m[==========] [mRunning 1 test from 1 test suite.
+[0;32m[----------] [mGlobal test environment set-up.
+[0;32m[----------] [m1 test from DBTest
+[0;32m[ RUN      ] [mDBTest.rWUnitTest1
+1, foo, foo@bar.com
+[0;32m[       OK ] [mDBTest.rWUnitTest1 (0 ms)
+[0;32m[----------] [m1 test from DBTest (0 ms total)
+
+[0;32m[----------] [mGlobal test environment tear-down
+[0;32m[==========] [m1 test from 1 test suite ran. (0 ms total)
+[0;32m[  PASSED  ] [m1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"DBTest.rWUnitTest1" end time: Apr 29 11:32 EDT
+"DBTest.rWUnitTest1" time elapsed: 00:00:00
+----------------------------------------------------------
+
+4/5 Testing: DBTest.rWEdgeCase2
+4/5 Test: DBTest.rWEdgeCase2
+Command: "/Users/nickcho/Desktop/Coding/DBMS/build/test/DBMS_test" "--gtest_filter=DBTest.rWEdgeCase2" "--gtest_also_run_disabled_tests"
+Directory: /Users/nickcho/Desktop/Coding/DBMS/build/test
+"DBTest.rWEdgeCase2" start time: Apr 29 11:32 EDT
+Output:
+----------------------------------------------------------
+[0;33mNote: Google Test filter = DBTest.rWEdgeCase2
+[m[0;32m[==========] [mRunning 1 test from 1 test suite.
+[0;32m[----------] [mGlobal test environment set-up.
+[0;32m[----------] [m1 test from DBTest
+[0;32m[ RUN      ] [mDBTest.rWEdgeCase2
+[0;32m[       OK ] [mDBTest.rWEdgeCase2 (0 ms)
+[0;32m[----------] [m1 test from DBTest (0 ms total)
+
+[0;32m[----------] [mGlobal test environment tear-down
+[0;32m[==========] [m1 test from 1 test suite ran. (0 ms total)
+[0;32m[  PASSED  ] [m1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"DBTest.rWEdgeCase2" end time: Apr 29 11:32 EDT
+"DBTest.rWEdgeCase2" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/5 Testing: DBTest.rWUnitTest2
+2/5 Test: DBTest.rWUnitTest2
+Command: "/Users/nickcho/Desktop/Coding/DBMS/build/test/DBMS_test" "--gtest_filter=DBTest.rWUnitTest2" "--gtest_also_run_disabled_tests"
+Directory: /Users/nickcho/Desktop/Coding/DBMS/build/test
+"DBTest.rWUnitTest2" start time: Apr 29 11:32 EDT
+Output:
+----------------------------------------------------------
+[0;33mNote: Google Test filter = DBTest.rWUnitTest2
+[m[0;32m[==========] [mRunning 1 test from 1 test suite.
+[0;32m[----------] [mGlobal test environment set-up.
+[0;32m[----------] [m1 test from DBTest
+[0;32m[ RUN      ] [mDBTest.rWUnitTest2
+[0;32m[       OK ] [mDBTest.rWUnitTest2 (0 ms)
+[0;32m[----------] [m1 test from DBTest (0 ms total)
+
+[0;32m[----------] [mGlobal test environment tear-down
+[0;32m[==========] [m1 test from 1 test suite ran. (0 ms total)
+[0;32m[  PASSED  ] [m1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"DBTest.rWUnitTest2" end time: Apr 29 11:32 EDT
+"DBTest.rWUnitTest2" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/5 Testing: DBTest.rWEdgeCase1
+3/5 Test: DBTest.rWEdgeCase1
+Command: "/Users/nickcho/Desktop/Coding/DBMS/build/test/DBMS_test" "--gtest_filter=DBTest.rWEdgeCase1" "--gtest_also_run_disabled_tests"
+Directory: /Users/nickcho/Desktop/Coding/DBMS/build/test
+"DBTest.rWEdgeCase1" start time: Apr 29 11:32 EDT
+Output:
+----------------------------------------------------------
+[0;33mNote: Google Test filter = DBTest.rWEdgeCase1
+[m[0;32m[==========] [mRunning 1 test from 1 test suite.
+[0;32m[----------] [mGlobal test environment set-up.
+[0;32m[----------] [m1 test from DBTest
+[0;32m[ RUN      ] [mDBTest.rWEdgeCase1
+[0;32m[       OK ] [mDBTest.rWEdgeCase1 (1 ms)
+[0;32m[----------] [m1 test from DBTest (1 ms total)
+
+[0;32m[----------] [mGlobal test environment tear-down
+[0;32m[==========] [m1 test from 1 test suite ran. (1 ms total)
+[0;32m[  PASSED  ] [m1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"DBTest.rWEdgeCase1" end time: Apr 29 11:32 EDT
+"DBTest.rWEdgeCase1" time elapsed: 00:00:00
+----------------------------------------------------------
+
+5/5 Testing: DBMS_test
+5/5 Test: DBMS_test
+Command: "/Users/nickcho/Desktop/Coding/DBMS/build/test/DBMS_test"
+Directory: /Users/nickcho/Desktop/Coding/DBMS/build/test
+"DBMS_test" start time: Apr 29 11:32 EDT
+Output:
+----------------------------------------------------------
+[0;32m[==========] [mRunning 4 tests from 1 test suite.
+[0;32m[----------] [mGlobal test environment set-up.
+[0;32m[----------] [m4 tests from DBTest
+[0;32m[ RUN      ] [mDBTest.rWUnitTest1
+1, foo, foo@bar.com
+[0;32m[       OK ] [mDBTest.rWUnitTest1 (0 ms)
+[0;32m[ RUN      ] [mDBTest.rWUnitTest2
+[0;32m[       OK ] [mDBTest.rWUnitTest2 (0 ms)
+[0;32m[ RUN      ] [mDBTest.rWEdgeCase1
+[0;32m[       OK ] [mDBTest.rWEdgeCase1 (1 ms)
+[0;32m[ RUN      ] [mDBTest.rWEdgeCase2
+[0;32m[       OK ] [mDBTest.rWEdgeCase2 (0 ms)
+[0;32m[----------] [m4 tests from DBTest (1 ms total)
+
+[0;32m[----------] [mGlobal test environment tear-down
+[0;32m[==========] [m4 tests from 1 test suite ran. (1 ms total)
+[0;32m[  PASSED  ] [m4 tests.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"DBMS_test" end time: Apr 29 11:32 EDT
+"DBMS_test" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Apr 29 11:32 EDT
