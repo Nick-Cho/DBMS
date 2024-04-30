@@ -10,8 +10,8 @@ bool Table::insert(const Row& row) {
     if (num_rows_ >= TABLE_MAX_ROWS) {
         return false;
     }
-
-    row.serialize_row(static_cast<char*>(row_slot(num_rows_)));
+    Cursor cursor = this->tableEnd();
+    row.serialize_row(static_cast<char*>(row_slot(cursor.getRowNum())));
     num_rows_++;
     return true;
 }
