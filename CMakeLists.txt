@@ -14,10 +14,15 @@ include(UpdateSubmodules.cmake)
 
 add_library(table STATIC src/table/include/table.h src/table/table.cpp)
 target_include_directories(table PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/table/include)
+target_link_libraries(table PUBLIC pager)
 
 add_library(row STATIC src/row/include/row.h src/row/row.cpp)
 target_include_directories(row PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/row/include)
 target_link_libraries(row PUBLIC table)
+
+add_library(pager STATIC src/pager/include/pager.h src/pager/pager.cpp)
+target_include_directories(pager PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/pager/include)
+target_link_libraries(pager PUBLIC row table)
 
 add_library(statement STATIC src/statement/include/statement.h src/statement/statement.cpp)
 target_include_directories(statement PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src/statement/include)

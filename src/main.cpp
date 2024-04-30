@@ -8,8 +8,9 @@ typedef enum {
 	META_COMMAND_UNRECOGNIZED_COMMAND
 } MetaCommandResult;
 
-MetaCommandResult execMetaCommand(InputBuffer* input_buffer) {
+MetaCommandResult execMetaCommand(InputBuffer* input_buffer, Table* table) {
 	if (input_buffer->getBuffer() == ".exit") {
+		table->db_close();
 		exit(EXIT_SUCCESS);
 	} else {
 		return META_COMMAND_UNRECOGNIZED_COMMAND;
@@ -17,8 +18,16 @@ MetaCommandResult execMetaCommand(InputBuffer* input_buffer) {
 }
 
 int main(int argc, char* argv[]) {
+	if (argc < 2) {
+		std::cout << "Must supply a database name\n";
+		exit(EXIT_FAILURE);
+	}
+
+	char* filename = argv[1];
+
 	InputBuffer* input_buffer = InputBuffer::getBufferInstance();
 	Table* table = new Table();
+	table->db_open(filename);
 
 	while (true) {
 		// Reading input for database transaction
@@ -27,8 +36,8 @@ int main(int argc, char* argv[]) {
 		std::string input = input_buffer->getBuffer();
 
 		// Input error handling
-		if (input == ".") {								
-			switch (execMetaCommand(input_buffer)){
+		if (input[0] == '.') {								
+			switch (execMetaCommand(input_buffer, table)){
 				case (META_COMMAND_SUCCESS):
 					continue;
 				case (META_COMMAND_UNRECOGNIZED_COMMAND):
@@ -47,6 +56,12 @@ int main(int argc, char* argv[]) {
 				continue;				
 			case (PrepareResult::PREPARE_UNRECOGNIZED_STATEMENT):
 				printf("Unrecognized keyword at start of '%s'. \n", input.c_str());
+				continue;
+			case (PrepareResult::PREPARE_NEGATIVE_ID):
+				printf("Id provided for insert is negative \n");
+				continue;
+			case(PrepareResult:: PREPARE_STRING_TOO_LONG):
+				printf("The string provided for insertion is too long \n");
 				continue;
 		}
 

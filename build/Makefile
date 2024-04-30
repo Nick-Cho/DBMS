@@ -562,6 +562,19 @@ row/fast:
 .PHONY : row/fast
 
 #=============================================================================
+# Target rules for targets named pager
+
+# Build rule for target.
+pager: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 pager
+.PHONY : pager
+
+# fast build rule for target.
+pager/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pager.dir/build.make CMakeFiles/pager.dir/build
+.PHONY : pager/fast
+
+#=============================================================================
 # Target rules for targets named statement
 
 # Build rule for target.
@@ -713,6 +726,30 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DBMS.dir/build.make CMakeFiles/DBMS.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/pager/pager.o: src/pager/pager.cpp.o
+.PHONY : src/pager/pager.o
+
+# target to build an object file
+src/pager/pager.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pager.dir/build.make CMakeFiles/pager.dir/src/pager/pager.cpp.o
+.PHONY : src/pager/pager.cpp.o
+
+src/pager/pager.i: src/pager/pager.cpp.i
+.PHONY : src/pager/pager.i
+
+# target to preprocess a source file
+src/pager/pager.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pager.dir/build.make CMakeFiles/pager.dir/src/pager/pager.cpp.i
+.PHONY : src/pager/pager.cpp.i
+
+src/pager/pager.s: src/pager/pager.cpp.s
+.PHONY : src/pager/pager.s
+
+# target to generate assembly for a file
+src/pager/pager.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pager.dir/build.make CMakeFiles/pager.dir/src/pager/pager.cpp.s
+.PHONY : src/pager/pager.cpp.s
+
 src/row/row.o: src/row/row.cpp.o
 .PHONY : src/row/row.o
 
@@ -833,6 +870,7 @@ help:
 	@echo "... gtest"
 	@echo "... gtest_main"
 	@echo "... inputBuffer"
+	@echo "... pager"
 	@echo "... row"
 	@echo "... statement"
 	@echo "... table"
@@ -842,6 +880,9 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/pager/pager.o"
+	@echo "... src/pager/pager.i"
+	@echo "... src/pager/pager.s"
 	@echo "... src/row/row.o"
 	@echo "... src/row/row.i"
 	@echo "... src/row/row.s"
