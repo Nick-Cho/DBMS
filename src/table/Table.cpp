@@ -17,11 +17,14 @@ bool Table::insert(const Row& row) {
 }
 
 void Table::select() {
+    Cursor cursor = tableStart();
     Row row;
-    for (uint32_t i = 0; i < num_rows_; i++) {
-        row.deserialize_row(static_cast<char*>(row_slot(i)));
+    while (!cursor.isTableEnd()) {
+        row.deserialize_row(static_cast<char*>(row_slot(cursor.getRowNum())));
         row.print_row();
-    }    
+        ++cursor;
+    }
+    
 }
 
 Table::Table(): num_rows_(0), pager_(nullptr) {}

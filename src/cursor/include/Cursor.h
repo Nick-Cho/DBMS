@@ -12,6 +12,8 @@ class Cursor {
         Cursor(Table* table, uint32_t row);
         Cursor& operator++();
         Cursor& operator--();
+        bool isTableEnd();
+        uint32_t getRowNum();
 };
 
 #endif

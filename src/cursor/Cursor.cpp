@@ -17,3 +17,11 @@ Cursor& Cursor::operator--() {
     }
     return *this;
 }
+
+bool Cursor::isTableEnd() {
+    return b_table_end_;
+}
+
+uint32_t Cursor::getRowNum() {
+    return row_num_;
+}
