@@ -12,7 +12,7 @@ Cursor& Cursor::operator++() {
     cell_num_++;
 
     if (cell_num_ >= *(node.leafNodeNumCells())){
-        uint32_t next_page_num = *node.leaf_node_next_leaf();
+        uint32_t next_page_num = *node.leafNodeNextLeaf();
         if (next_page_num == 0){
             b_table_end_ = true;
         } else {

@@ -25,6 +25,7 @@ const uint8_t COMMON_NODE_HEADER_SIZE = NODE_TYPE_SIZE + IS_ROOT_SIZE + PARENT_P
 const uint32_t LEAF_NODE_NUM_CELLS_SIZE = sizeof(uint32_t);
 const uint32_t LEAF_NODE_NUM_CELLS_OFFSET = COMMON_NODE_HEADER_SIZE;
 const uint32_t LEAF_NODE_HEADER_SIZE = COMMON_NODE_HEADER_SIZE + LEAF_NODE_NUM_CELLS_SIZE;
+const uint32_t LEAF_NODE_NEXT_LEAF_OFFSET = LEAF_NODE_NUM_CELLS_OFFSET + LEAF_NODE_NUM_CELLS_SIZE;
 
 /*
 * Leaf Node Body Layout
@@ -45,7 +46,8 @@ class Node {
         uint32_t* leafNodeNumCells();
         void* leafNodeCell(uint32_t cell_num);
         uint32_t* leafNodeKey(uint32_t cell_num);
-        void* leafNodeValue(uint32_t cell_num);        
+        void* leafNodeValue(uint32_t cell_num);    
+        uint32_t* leafNodeNextLeaf();    
 };
 
 #endif
