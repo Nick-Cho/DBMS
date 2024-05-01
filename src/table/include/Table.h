@@ -17,7 +17,7 @@ class Table {
         void select();
         Cursor tableStart();
         Cursor tableEnd();
-        uint32_t getNumRows();
+        uint32_t getNumPages();
     private:
         uint32_t root_page_num_;
         std::shared_ptr<Pager> pager_;

@@ -2,6 +2,7 @@
 #include "../row/include/Row.h"
 #include "../pager/include/Pager.h"
 #include "../cursor/include/Cursor.h"
+#include "../node/include/Node.h"
 
 #include <iostream>
 
@@ -59,7 +60,10 @@ void Table::db_open(const std::string filename) {
 }
 
 Cursor Table::tableStart() {
-    return Cursor(this, 0);
+    void* root_node = pager_->getPage(root_page_num_);
+    Node node = Node(root_node);
+    uint32_t num_cells = *(node.leafNodeNumCells());
+    return Cursor(this, root_page_num_, 0, num_cells == 0);
 }
 
 Cursor Table::tableEnd() {

@@ -11,7 +11,7 @@ class Cursor {
         uint32_t cell_num_;
         bool b_table_end_; // Indicates position one past the end of the table
     public:
-        Cursor(Table* table, uint32_t row);
+        Cursor(Table* table, uint32_t page_num, uint32_t cell_num, bool isEndOfTable);
 
         Cursor& operator++();
         
