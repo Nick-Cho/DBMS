@@ -55,8 +55,12 @@ void* Table::row_slot(uint32_t row_num) {
 
 void Table::db_open(const std::string filename) {
     pager_ = std::make_shared<Pager>(filename);
-    // num of rows for full pages + additional rows from partially filled page
-    num_rows_ = ((pager_->getFileLength() / PAGE_SIZE) * ROWS_PER_PAGE) + ((pager_->getFileLength() % PAGE_SIZE) / sizeof(Row));
+    if (pager_->getNumPages() == 0) {
+        void *root_node = pager_->getPage(0);
+        Node node = Node(root_node);
+        node.initializeLeafNode();
+        node.setRoot(true);
+    }
 }
 
 Cursor Table::tableStart() {
@@ -71,5 +75,5 @@ Cursor Table::tableEnd() {
     void* end_node = pager_->getPage(end_page_num);
     Node node = Node(end_node);
     uint32_t num_cells = *(node.leafNodeNumCells());
-    return Cursor(this, end_page_num, num_cells, true);
+    return Cursor(this, end_page_num, num_cells, true); 
 }
