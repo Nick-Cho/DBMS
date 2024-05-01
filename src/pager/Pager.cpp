@@ -69,7 +69,7 @@ uint32_t Pager::getFileLength() {
     return file_length_;
 }
 
-void Pager::flush(uint32_t page_num, uint32_t size) {
+void Pager::flush(uint32_t page_num) {
     if (pages_[page_num] == nullptr) {
         printf("Trying to flush null page\n");
         exit(EXIT_FAILURE);
@@ -80,7 +80,7 @@ void Pager::flush(uint32_t page_num, uint32_t size) {
         std::cerr << "Error while finding page starting point with seekg (line 74 Pager.cpp) \n";
     }
 
-    file_stream_.write(pages_[page_num].get(), size);
+    file_stream_.write(pages_[page_num].get(), PAGE_SIZE);
     file_stream_.flush();
 
     if (file_stream_.fail()) {

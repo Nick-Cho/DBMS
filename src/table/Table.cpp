@@ -33,17 +33,8 @@ void Table::db_close() {
     uint32_t num_full_pages = num_rows_ / ROWS_PER_PAGE;
     for (uint32_t i=0; i<num_full_pages; ++i) {
         if (pager_->getPage(i) != nullptr) {
-            pager_->flush(i, PAGE_SIZE);
+            pager_->flush(i);
             pager_->getPages()[i].reset();
-        }
-    }
-
-    uint32_t num_additional_rows = num_rows_%ROWS_PER_PAGE;
-    if (num_additional_rows > 0) {
-        uint32_t page_num = num_full_pages;
-        if (pager_->getPage(page_num) != nullptr) {
-            pager_->flush(page_num, num_additional_rows * sizeof(Row));
-            pager_->getPages()[page_num].reset();
         }
     }
 
