@@ -12,8 +12,8 @@ class Table {
     friend class Cursor;
     public:
         Table();
-        void db_close();
-        void db_open(const std::string filename);
+        void dbClose();
+        void dbOpen(const std::string filename);
         bool insert(const Row& row);
         void select();
         Cursor tableStart();

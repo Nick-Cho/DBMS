@@ -30,7 +30,7 @@ void Table::select() {
 
 Table::Table(): root_page_num_(0), pager_(nullptr) {}
 
-void Table::db_close() {
+void Table::dbClose() {
     for (uint32_t i=0; i<pager_->getNumPages(); ++i) {
         if (pager_->getPage(i) != nullptr) {
             pager_->flush(i);
@@ -53,7 +53,7 @@ void* Table::row_slot(uint32_t row_num) {
     return static_cast<char*>(page) + byte_offset;
 }
 
-void Table::db_open(const std::string filename) {
+void Table::dbOpen(const std::string filename) {
     pager_ = std::make_shared<Pager>(filename);
     if (pager_->getNumPages() == 0) {
         void *root_node = pager_->getPage(0);
