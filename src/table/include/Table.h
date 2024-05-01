@@ -19,7 +19,7 @@ class Table {
         Cursor tableEnd();
         uint32_t getNumRows();
     private:
-        uint32_t num_rows_;
+        uint32_t root_page_num_;
         std::shared_ptr<Pager> pager_;
         void* row_slot(uint32_t row_num);
         

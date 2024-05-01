@@ -11,7 +11,11 @@ Pager::Pager(const std::string &filename): file_length_(0), pages_() {
 
     file_length_ = file_stream_.tellg();
     file_stream_.seekg(0, std::ios::beg);
-
+    num_pages_ = (file_length_ / PAGE_SIZE);
+    if (file_length_ % PAGE_SIZE != 0) {
+        printf("Db file is not a whole number of pages. Corrupt file.\n");
+        exit(EXIT_FAILURE);
+    }
     pages_.resize(TABLE_MAX_PAGES);
 };
 
@@ -48,6 +52,9 @@ void* Pager::getPage(uint32_t page_num) {
                 std::cerr << "Error reading file p1\n";
                 exit(EXIT_FAILURE);
             }
+        }
+        else if (page_num >= num_pages) {
+            this->num_pages_ = page_num + 1;
         }
     }
     return pages_[page_num].get();
