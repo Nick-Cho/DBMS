@@ -9,6 +9,7 @@
 
 class Cursor;
 class Table {
+    friend class Cursor;
     public:
         Table();
         void db_close();
@@ -17,7 +18,6 @@ class Table {
         void select();
         Cursor tableStart();
         Cursor tableEnd();
-        uint32_t getNumPages();
     private:
         uint32_t root_page_num_;
         std::shared_ptr<Pager> pager_;

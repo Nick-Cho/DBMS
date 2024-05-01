@@ -18,8 +18,6 @@ class Cursor {
         Cursor& operator--();
         
         bool isTableEnd();
-        
-        uint32_t getRowNum();
 };
 
 #endif
