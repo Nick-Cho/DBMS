@@ -27,11 +27,10 @@ void Table::select() {
     
 }
 
-Table::Table(): num_rows_(0), pager_(nullptr) {}
+Table::Table(): root_page_num_(0), pager_(nullptr) {}
 
 void Table::db_close() {
-    uint32_t num_full_pages = num_rows_ / ROWS_PER_PAGE;
-    for (uint32_t i=0; i<num_full_pages; ++i) {
+    for (uint32_t i=0; i<pager_->getNumPages(); ++i) {
         if (pager_->getPage(i) != nullptr) {
             pager_->flush(i);
             pager_->getPages()[i].reset();

@@ -21,6 +21,7 @@ class Pager {
         uint32_t getFileLength();
         void flush(uint32_t page_num);
         int close();
+        uint32_t getNumPages();
         std::vector<std::unique_ptr<char[]>>& getPages();
 };
 
