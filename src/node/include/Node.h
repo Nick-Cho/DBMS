@@ -42,7 +42,7 @@ class Node {
         void *node_;
     public:
         Node(void *node);
-        uint32_t leafNodeNumCells();
+        uint32_t* leafNodeNumCells();
         void* leafNodeCell(uint32_t cell_num);
         uint32_t* leafNodeKey(uint32_t cell_num);
         void* leafNodeValue(uint32_t cell_num);        
