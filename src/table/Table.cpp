@@ -63,13 +63,13 @@ Cursor Table::tableStart() {
     void* root_node = pager_->getPage(root_page_num_);
     Node node = Node(root_node);
     uint32_t num_cells = *(node.leafNodeNumCells());
-    return Cursor(this, root_page_num_, 0, num_cells == 0);
+    return Cursor(this, root_page_num_, 0, num_cells == 0); // Can be end of the table if there is nothing in it
 }
 
 Cursor Table::tableEnd() {
-    return Cursor(this, num_rows_);
-}
-
-uint32_t Table::getNumRows() {
-    return num_rows_;
+    uint32_t end_page_num = pager_->getNumPages();
+    void* end_node = pager_->getPage(end_page_num);
+    Node node = Node(end_node);
+    uint32_t num_cells = *(node.leafNodeNumCells());
+    return Cursor(this, end_page_num, num_cells, true);
 }

@@ -95,3 +95,7 @@ void Pager::flush(uint32_t page_num) {
         exit(EXIT_FAILURE);
     }
 }
+
+uint32_t Pager::getNumPages() {
+    return num_pages_;
+}
