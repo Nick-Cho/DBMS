@@ -23,13 +23,15 @@ class Table {
         
         Cursor tableStart();
         
-        Cursor tableEnd();
+        // Cursor tableEnd(); -- deprecated for tableFind()
         
         void leafNodeInsert(Cursor* cursor, uint32_t key, Row* value);
 
         void printConstants();
 
         void printTree(uint32_t page_num);
+
+        Cursor tableFind(uint32_t search_key);
     private:
         uint32_t root_page_num_;
         std::shared_ptr<Pager> pager_;

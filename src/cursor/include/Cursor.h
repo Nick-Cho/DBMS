@@ -3,6 +3,8 @@
 
 #include "../../table/include/Table.h"
 
+// Main purpose is to keep track of the current position in the table
+
 class Table;
 class Cursor {
     private:

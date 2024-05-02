@@ -127,3 +127,13 @@ void Table::printTree(uint32_t page_num) {
     Node node = Node(pager_->getPage(page_num));
     node.printLeafNode();
 }
+
+Cursor Table::tableFind(uint32_t search_key) {
+    Node node = Node(pager_->getPage(root_page_num_));
+    if (node.getNodeType() == NODE_LEAF) {
+        return leafNodeFind(root_page_num_, search_key);
+    } else {
+        printf("Need to implement searching for internal node");
+        exit(EXIT_FAILURE);
+    }
+}
