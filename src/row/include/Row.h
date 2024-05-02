@@ -15,9 +15,9 @@ class Row {
         void set_id(uint32_t id);
         void set_username(const std::string& username);
         void set_email(const std::string& email);
-        uint32_t get_id() const;
-        const char* get_username() const;
-        const char* get_email() const;
+        uint32_t getId() const;
+        const char* getUsername() const;
+        const char* getEmail() const;
     private:
         uint32_t id_;
         char username_[USERNAME_SIZE + 1]; // +1 for null terminator

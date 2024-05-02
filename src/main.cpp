@@ -10,9 +10,15 @@ typedef enum {
 
 MetaCommandResult execMetaCommand(InputBuffer* input_buffer, Table* table) {
 	if (input_buffer->getBuffer() == ".exit") {
-		table->db_close();
+		table->dbClose();
 		exit(EXIT_SUCCESS);
-	} else {
+	} 
+	else if (input_buffer->getBuffer() == ".constants") {
+		std::cout << "Constants: \n";
+		table->printConstants();
+		return META_COMMAND_SUCCESS;
+	}
+	else {
 		return META_COMMAND_UNRECOGNIZED_COMMAND;
 	}
 }
@@ -27,7 +33,7 @@ int main(int argc, char* argv[]) {
 
 	InputBuffer* input_buffer = InputBuffer::getBufferInstance();
 	Table* table = new Table();
-	table->db_open(filename);
+	table->dbOpen(filename);
 
 	while (true) {
 		// Reading input for database transaction

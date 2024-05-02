@@ -24,13 +24,13 @@ Cursor& Cursor::operator++() {
     return *this;
 }
 
-Cursor& Cursor::operator--() {
-    row_num_--;
-    if (row_num_ < table_->getNumRows()) {
-         b_table_end_ = false;
-    }
-    return *this;
-}
+// Cursor& Cursor::operator--() {
+//     row_num_--;
+//     if (row_num_ < table_->getNumRows()) {
+//          b_table_end_ = false;
+//     }
+//     return *this;
+// }
 
 bool Cursor::isTableEnd() {
     return b_table_end_;

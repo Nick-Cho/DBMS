@@ -26,6 +26,8 @@ class Table {
         Cursor tableEnd();
         
         void leafNodeInsert(Cursor* cursor, uint32_t key, Row* value);
+
+        void printConstants();
     private:
         uint32_t root_page_num_;
         std::shared_ptr<Pager> pager_;

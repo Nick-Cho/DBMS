@@ -8,25 +8,26 @@
 
 
 bool Table::insert(const Row& row) {
-    if (num_rows_ >= TABLE_MAX_ROWS) {
+    Node node = Node(pager_->getPage(root_page_num_));
+    if (*(node.leafNodeNumCells()) > LEAF_NODE_MAX_CELLS) {
+        // Table full
         return false;
     }
-    Cursor cursor = this->tableEnd();
-    row.serialize_row(static_cast<char*>(row_slot(cursor.getRowNum())));
-    num_rows_++;
+    leafNodeInsert(&Cursor(this, root_page_num_, 0, true), row.getId(), const_cast<Row*>(&row));
+    
     return true;
 }
 
-void Table::select() {
-    Cursor cursor = tableStart();
-    Row row;
-    while (!cursor.isTableEnd()) {
-        row.deserialize_row(static_cast<char*>(row_slot(cursor.getRowNum())));
-        row.print_row();
-        ++cursor;
-    }
+// void Table::select() {
+//     Cursor cursor = tableStart();
+//     Row row;
+//     while (!cursor.isTableEnd()) {
+//         row.deserialize_row(static_cast<char*>(row_slot(cursor.getRowNum())));
+//         row.print_row();
+//         ++cursor;
+//     }
     
-}
+// }
 
 Table::Table(): root_page_num_(0), pager_(nullptr) {}
 
@@ -45,13 +46,13 @@ void Table::dbClose() {
     pager_.reset();
 }
 
-void* Table::row_slot(uint32_t row_num) {
-    uint32_t page_num = row_num / ROWS_PER_PAGE;
-    void* page = pager_->getPage(page_num);
-    uint32_t row_offset = row_num % ROWS_PER_PAGE;
-    uint32_t byte_offset = row_offset * sizeof(Row);
-    return static_cast<char*>(page) + byte_offset;
-}
+// void* Table::row_slot(uint32_t row_num) {
+//     uint32_t page_num = row_num / ROWS_PER_PAGE;
+//     void* page = pager_->getPage(page_num);
+//     uint32_t row_offset = row_num % ROWS_PER_PAGE;
+//     uint32_t byte_offset = row_offset * sizeof(Row);
+//     return static_cast<char*>(page) + byte_offset;
+// }
 
 void Table::dbOpen(const std::string filename) {
     pager_ = std::make_shared<Pager>(filename);
@@ -98,4 +99,13 @@ void Table::leafNodeInsert(Cursor* cursor, uint32_t key, Row* value) {
             );            
         }
     }
+}
+
+void Table::printConstants() {
+    std::cout << "ROW_SIZE: " << sizeof(Row) << std::endl;
+    std::cout << "COMMON_NODE_HEADER_SIZE: " << (int) COMMON_NODE_HEADER_SIZE << std::endl;
+    std::cout << "LEAF_NODE_HEADER_SIZE: " << LEAF_NODE_HEADER_SIZE << std::endl;
+    std::cout << "LEAF_NODE_CELL_SIZE: " << LEAF_NODE_CELL_SIZE << std::endl;
+    std::cout << "LEAF_NODE_SPACE_FOR_CELLS: " << LEAF_NODE_SPACE_FOR_CELLS << std::endl;
+    std::cout << "LEAF_NODE_MAX_CELLS: " << LEAF_NODE_MAX_CELLS << std::endl;
 }

@@ -36,14 +36,14 @@ void Row::set_email(const std::string& email) {
     this->email_[EMAIL_SIZE] = '\0';
 }
 
-uint32_t Row::get_id() const {
+uint32_t Row::getId() const {
     return id_;
 }
 
-const char* Row::get_username() const {
+const char* Row::getUsername() const {
     return username_;
 }   
 
-const char* Row::get_email() const {
+const char* Row::getEmail() const {
     return email_;
 }
