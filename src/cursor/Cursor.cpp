@@ -43,3 +43,7 @@ uint32_t Cursor::getPageNum() {
 uint32_t Cursor::getCellNum() {
     return cell_num_;
 }
+
+void Cursor::setCellNum(uint32_t cell_num) {
+    cell_num_ = cell_num;
+}

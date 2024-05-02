@@ -24,6 +24,8 @@ class Cursor {
         uint32_t getPageNum();
 
         uint32_t getCellNum();
+
+        void setCellNum(uint32_t cell_num);
 };
 
 #endif

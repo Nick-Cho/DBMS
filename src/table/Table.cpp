@@ -83,13 +83,13 @@ Cursor Table::tableStart() {
     return Cursor(this, root_page_num_, 0, num_cells == 0); // Can be end of the table if there is nothing in it
 }
 
-Cursor Table::tableEnd() {
-    uint32_t end_page_num = pager_->getNumPages();
-    void* end_node = pager_->getPage(end_page_num);
-    Node node = Node(end_node);
-    uint32_t num_cells = *(node.leafNodeNumCells());
-    return Cursor(this, end_page_num, num_cells, true); 
-}
+// Cursor Table::tableEnd() {
+//     uint32_t end_page_num = pager_->getNumPages();
+//     void* end_node = pager_->getPage(end_page_num);
+//     Node node = Node(end_node);
+//     uint32_t num_cells = *(node.leafNodeNumCells());
+//     return Cursor(this, end_page_num, num_cells, true); 
+// }
 
 void Table::leafNodeInsert(Cursor* cursor, uint32_t key, Row* value) {
     void *node = pager_->getPage(cursor->getPageNum());
@@ -136,4 +136,33 @@ Cursor Table::tableFind(uint32_t search_key) {
         printf("Need to implement searching for internal node");
         exit(EXIT_FAILURE);
     }
+}
+
+Cursor Table::leafNodeFind(uint32_t page_num, uint32_t key) {
+    Node node = Node(pager_->getPage(page_num));
+    uint32_t num_cells = *(node.leafNodeNumCells());
+
+    Cursor cursor = Cursor(this, page_num, 0, num_cells == LEAF_NODE_MAX_CELLS);
+
+    // Binary Search
+    uint32_t min_index = 0;
+
+    // num_cells count starts at 1 while index is 0 based
+    while (min_index < num_cells) {
+        uint32_t mid = (min_index + num_cells) / 2;
+        uint32_t key_at_mid = *(node.leafNodeKey(mid));
+        if (key == key_at_mid) {
+            cursor.setCellNum(mid);
+            return cursor;
+        }
+
+        if (key < key_at_mid) {
+            num_cells = mid;
+        } else {
+            min_index = mid + 1;
+        }
+    }
+
+    cursor.setCellNum(min_index);
+    return cursor;
 }

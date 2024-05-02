@@ -32,6 +32,8 @@ class Table {
         void printTree(uint32_t page_num);
 
         Cursor tableFind(uint32_t search_key);
+
+        Cursor leafNodeFind(uint32_t page_num, uint32_t key);
     private:
         uint32_t root_page_num_;
         std::shared_ptr<Pager> pager_;
