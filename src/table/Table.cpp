@@ -77,3 +77,25 @@ Cursor Table::tableEnd() {
     uint32_t num_cells = *(node.leafNodeNumCells());
     return Cursor(this, end_page_num, num_cells, true); 
 }
+
+void Table::leafNodeInsert(Cursor* cursor, uint32_t key, Row* value) {
+    void *node = pager_->getPage(cursor->getPageNum());
+
+    uint32_t num_cells = *(Node(node).leafNodeNumCells());
+    if (num_cells >= LEAF_NODE_MAX_CELLS) {
+        // Node full
+        printf("Need to implement splitting a leaf node\n");
+        exit(EXIT_FAILURE);
+    }
+
+    if (cursor->getCellNum() < num_cells) {
+        // Make room for new cell
+        for (uint32_t i=num_cells; i>cursor->getCellNum(); --i) {
+            std::copy(
+                static_cast<char*>(Node(node).leafNodeCell(i-1)),
+                static_cast<char*>(Node(node).leafNodeCell(i-1)) + LEAF_NODE_CELL_SIZE,
+                static_cast<char*>(Node(node).leafNodeCell(i))                
+            );            
+        }
+    }
+}

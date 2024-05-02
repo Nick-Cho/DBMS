@@ -12,12 +12,20 @@ class Table {
     friend class Cursor;
     public:
         Table();
+        
         void dbClose();
+        
         void dbOpen(const std::string filename);
+        
         bool insert(const Row& row);
+        
         void select();
+        
         Cursor tableStart();
+        
         Cursor tableEnd();
+        
+        void leafNodeInsert(Cursor* cursor, uint32_t key, Row* value);
     private:
         uint32_t root_page_num_;
         std::shared_ptr<Pager> pager_;

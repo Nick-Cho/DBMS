@@ -18,6 +18,10 @@ class Cursor {
         Cursor& operator--();
         
         bool isTableEnd();
+
+        uint32_t getPageNum();
+
+        uint32_t getCellNum();
 };
 
 #endif

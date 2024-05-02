@@ -43,11 +43,20 @@ class Node {
         void *node_;
     public:
         Node(void *node);
+        
         uint32_t* leafNodeNumCells();
+        
         void* leafNodeCell(uint32_t cell_num);
+        
         uint32_t* leafNodeKey(uint32_t cell_num);
+        
         void* leafNodeValue(uint32_t cell_num);    
-        uint32_t* leafNodeNextLeaf();    
+        
+        uint32_t* leafNodeNextLeaf(); 
+        
+        void initializeLeafNode();
+        
+        void setRoot(bool isRoot);   
 };
 
 #endif

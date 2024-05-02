@@ -35,3 +35,11 @@ Cursor& Cursor::operator--() {
 bool Cursor::isTableEnd() {
     return b_table_end_;
 }
+
+uint32_t Cursor::getPageNum() {
+    return page_num_;
+}
+
+uint32_t Cursor::getCellNum() {
+    return cell_num_;
+}
