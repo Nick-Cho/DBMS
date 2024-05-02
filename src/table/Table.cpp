@@ -109,3 +109,9 @@ void Table::printConstants() {
     std::cout << "LEAF_NODE_SPACE_FOR_CELLS: " << LEAF_NODE_SPACE_FOR_CELLS << std::endl;
     std::cout << "LEAF_NODE_MAX_CELLS: " << LEAF_NODE_MAX_CELLS << std::endl;
 }
+
+void Table::printTree(uint32_t page_num) {
+    std::cout << "Tree:\n";
+    Node node = Node(pager_->getPage(page_num));
+    node.printLeafNode();
+}

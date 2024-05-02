@@ -18,6 +18,11 @@ MetaCommandResult execMetaCommand(InputBuffer* input_buffer, Table* table) {
 		table->printConstants();
 		return META_COMMAND_SUCCESS;
 	}
+	else if (input_buffer->getBuffer() == ".btree"){
+        std::cout << "Tree:\n";
+        table->printTree(0);
+        return META_COMMAND_SUCCESS;
+    }
 	else {
 		return META_COMMAND_UNRECOGNIZED_COMMAND;
 	}
