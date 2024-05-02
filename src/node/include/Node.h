@@ -57,6 +57,8 @@ class Node {
         void initializeLeafNode();
         
         void setRoot(bool isRoot);   
+
+        void printLeafNode();
 };
 
 #endif

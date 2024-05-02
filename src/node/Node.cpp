@@ -27,3 +27,12 @@ void Node::setRoot(bool isRoot) {
     uint8_t value = static_cast<uint8_t>(isRoot);
     *static_cast<uint8_t*>(node_ + IS_ROOT_OFFSET) = value;
 }
+
+void Node::printLeafNode() {
+    uint32_t num_cells = *leafNodeNumCells();
+    std::cout << "leaf (size " << num_cells << "): ";
+    for (uint32_t i=0; i<num_cells; ++i) {
+        uint32_t key = *leafNodeKey(i);
+        std::cout <<"- " << i << " :"<< key << " \n";
+    }
+}
