@@ -46,3 +46,10 @@ void Node::setNodeType(NodeType type) {
     uint8_t value = static_cast<uint8_t>(type);
     *static_cast<uint8_t*>(node_ + NODE_TYPE_OFFSET) = value;
 }
+
+void Node::initializeLeafNode() {
+    setNodeType(NODE_LEAF);
+    setRoot(false);
+    *leafNodeNumCells() = 0;
+    *leafNodeNextLeaf() = 0; // since it has no siblings
+}
