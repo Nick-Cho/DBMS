@@ -109,3 +109,33 @@ TEST(DBTest, rWEdgeCase2) {
     output = testing::internal::GetCapturedStdout();
     ASSERT_EQ(output, std::string("Error: Email is too long.\n"));    
 }
+
+TEST (DBTest, persistenceTest) {
+    string file_name = "mydb.db";
+    ofstream file(file_name, ios::binary);
+    file.close();
+
+    Table *table = new Table();
+    table->db_open(file_name);
+
+    Statement statement;    
+    string username = string(33, 'a');
+    string email = string(256, 'a');
+    string cmd = "insert 1 " + username + " " + email;
+    statement.prepareStatement(cmd);
+
+    statement.executeStatement(table);
+
+    table->db_close();
+
+    Table *table2 = new Table();
+    table2->db_open(file_name);
+
+    Statement statement;
+    string cmd = "select";
+    statement.prepareStatement(cmd);
+    statement.executeStatement(table2);
+    std:string output = testing::internal::GetCapturedStdout();
+    ASSERT_NE(output, std::string(" "));  
+    table2->db_close();
+}
