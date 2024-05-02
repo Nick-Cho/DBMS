@@ -9,10 +9,22 @@
 
 bool Table::insert(const Row& row) {
     Node node = Node(pager_->getPage(root_page_num_));
-    if (*(node.leafNodeNumCells()) > LEAF_NODE_MAX_CELLS) {
+    uint32_t num_cells = *(node.leafNodeNumCells());
+    if (num_cells >= LEAF_NODE_MAX_CELLS) {
         // Table full
         return false;
     }
+    uint32_t insert_key = row.getId();
+    Cursor cursor = tableFind(insert_key);
+
+    Node node = Node(pager_->getPage(cursor.getPageNum()));
+    if (cursor.getCellNum() < num_cells) {
+        uint32_t key_at_index = *(node.leafNodeKey(cursor.getCellNum()));
+        if (key_at_index == insert_key) {
+            return false;
+        }
+    }
+
     leafNodeInsert(&Cursor(this, root_page_num_, 0, true), row.getId(), const_cast<Row*>(&row));
     
     return true;
