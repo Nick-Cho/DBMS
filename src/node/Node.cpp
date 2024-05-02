@@ -36,3 +36,13 @@ void Node::printLeafNode() {
         std::cout <<"- " << i << " :"<< key << " \n";
     }
 }
+
+NodeType Node::getNodeType() {
+    uint8_t value = *static_cast<uint8_t*>(node_ + NODE_TYPE_OFFSET);
+    return static_cast<NodeType>(value);
+}
+
+void Node::setNodeType(NodeType type) {
+    uint8_t value = static_cast<uint8_t>(type);
+    *static_cast<uint8_t*>(node_ + NODE_TYPE_OFFSET) = value;
+}

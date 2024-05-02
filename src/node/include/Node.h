@@ -59,6 +59,10 @@ class Node {
         void setRoot(bool isRoot);   
 
         void printLeafNode();
+
+        NodeType getNodeType();
+
+        void setNodeType(NodeType type);
 };
 
 #endif
