@@ -1,2 +1,0 @@
-/Library/Developer/CommandLineTools/usr/bin/ar qc libstatement.a CMakeFiles/statement.dir/src/statement/statement.cpp.o
-/Library/Developer/CommandLineTools/usr/bin/ranlib libstatement.a

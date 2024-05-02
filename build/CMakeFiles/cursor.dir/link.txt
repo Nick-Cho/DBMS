@@ -1,2 +1,0 @@
-/Library/Developer/CommandLineTools/usr/bin/ar qc libcursor.a CMakeFiles/cursor.dir/src/cursor/cursor.cpp.o
-/Library/Developer/CommandLineTools/usr/bin/ranlib libcursor.a

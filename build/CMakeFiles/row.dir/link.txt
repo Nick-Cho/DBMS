@@ -1,2 +1,0 @@
-/Library/Developer/CommandLineTools/usr/bin/ar qc librow.a CMakeFiles/row.dir/src/row/row.cpp.o
-/Library/Developer/CommandLineTools/usr/bin/ranlib librow.a

@@ -1,2 +1,0 @@
-/Library/Developer/CommandLineTools/usr/bin/ar qc libinputBuffer.a CMakeFiles/inputBuffer.dir/src/inputBuffer/inputBuffer.cpp.o
-/Library/Developer/CommandLineTools/usr/bin/ranlib libinputBuffer.a
