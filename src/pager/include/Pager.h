@@ -15,6 +15,7 @@ class Pager {
         std::fstream file_stream_;
         uint32_t num_pages_;
         std::vector<std::unique_ptr<char[]>> pages_;
+
     public:
         Pager(const std::string &filename);
         void* getPage(uint32_t page_num);
@@ -22,6 +23,7 @@ class Pager {
         void flush(uint32_t page_num);
         int close();
         uint32_t getNumPages();
+        uint32_t getUnusedPageNum(); // For now only returns pages from end of database file
         std::vector<std::unique_ptr<char[]>>& getPages();
 };
 

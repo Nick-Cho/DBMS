@@ -97,8 +97,9 @@ void Table::leafNodeInsert(Cursor* cursor, uint32_t key, Row* value) {
     uint32_t num_cells = *(Node(node).leafNodeNumCells());
     if (num_cells >= LEAF_NODE_MAX_CELLS) {
         // Node full
-        printf("Need to implement splitting a leaf node\n");
-        exit(EXIT_FAILURE);
+        // printf("Need to implement splitting a leaf node\n");
+        // exit(EXIT_FAILURE);
+        leafNodeSplitAndInsert(cursor, key, value);
     }
 
     if (cursor->getCellNum() < num_cells) {
@@ -109,6 +110,69 @@ void Table::leafNodeInsert(Cursor* cursor, uint32_t key, Row* value) {
                 static_cast<char*>(Node(node).leafNodeCell(i-1)) + LEAF_NODE_CELL_SIZE,
                 static_cast<char*>(Node(node).leafNodeCell(i))                
             );            
+        }
+    }
+}
+
+void Table::leafNodeSplitAndInsert(Cursor* cursor, uint32_t key, Row* value) {
+    // Create a new node and move half the cells over
+    // Insert the new value in one of the two nodes
+    // Update parent or create a new parent
+
+    void* old_node = pager_->getPage(cursor->getPageNum());
+    uint32_t new_page_num = pager_->getUnusedPageNum();
+    void* new_node = pager_->getPage(new_page_num);
+    Node(new_node).initializeLeafNode();
+
+    // Need to balance all existing keys into the old (left) and new nodes (right) evenly
+    // Starting from right, move every key into its correct position in the new node
+    for (uint32_t i=LEAF_NODE_MAX_CELLS; i>=0; i--) {
+        void* destination_node = nullptr;
+        // Check which side the current key is on (left or right)
+        
+        if (i >= LEAF_NODE_LEFT_SPLIT_COUNT) {
+            destination_node = new_node;
+        } else {
+            destination_node = old_node;
+        }
+
+        // Calculate the index within the node
+        // % is for the case that the new cell has to go into the right node
+        // so the cell number will be greater than the max number of cells
+        uint32_t index_within_node = i % LEAF_NODE_LEFT_SPLIT_COUNT;
+        void* destination = leafNodeCell(destination_node, index_within_node);
+
+        if (i == cursor->getCellNum()) {
+            // Case where we are on the new cell location
+            value->serializeRow(static_cast<char*>(Node(destination).leafNodeValue(index_within_node)));
+        } 
+        
+        else if (i > cursor->getCellNum()) {
+            // Case where we are moving cells to the right node
+            std::copy(
+                static_cast<char*>(Node(old_node).leafNodeCell(i-1)),
+                static_cast<char*>(Node(old_node).leafNodeCell(i-1)) + LEAF_NODE_CELL_SIZE,
+                static_cast<char*>(destination)
+            );
+        }
+
+        else {
+            // Case where we are moving cells to the left node
+            std::copy(
+                static_cast<char*>(Node(old_node).leafNodeCell(i)),
+                static_cast<char*>(Node(old_node).leafNodeCell(i) + LEAF_NODE_CELL_SIZE),
+                static_cast<char*>(destination)
+            );
+        }
+
+        *(Node(old_node).leafNodeNumCells()) = LEAF_NODE_LEFT_SPLIT_COUNT;
+        *(Node(new_node).leafNodeNumCells()) = LEAF_NODE_RIGHT_SPLIT_COUNT;
+
+        if (Node(old_node).isRoot()) {
+            return createNewRoot(new_page_num);
+        } else {
+            printf("Need to implement updating parent after split\n");
+            exit(EXIT_FAILURE);
         }
     }
 }
