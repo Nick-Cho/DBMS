@@ -190,7 +190,7 @@ void Table::printConstants() {
 void Table::printTree(uint32_t page_num) {
     std::cout << "Tree:\n";
     Node node = Node(pager_->getPage(page_num));
-    node.printLeafNode();
+    node.printTree(pager_, 0, 0);
 }
 
 Cursor Table::tableFind(uint32_t search_key) {

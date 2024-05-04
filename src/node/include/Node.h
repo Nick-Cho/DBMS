@@ -87,7 +87,9 @@ class Node {
         
         void setRoot(bool isRoot);   
 
-        void printLeafNode();
+        void printTree(Pager &pager, uint32_t page_num, uint32_t indentation_level);
+
+        void indent(uint32_t level);
 
         NodeType getNodeType();
 

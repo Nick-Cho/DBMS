@@ -34,12 +34,40 @@ void Node::setRoot(bool is_root) {
     *static_cast<uint8_t*>(node_ + IS_ROOT_OFFSET) = value;
 }
 
-void Node::printLeafNode() {
-    uint32_t num_cells = *leafNodeNumCells();
-    std::cout << "leaf (size " << num_cells << "): ";
-    for (uint32_t i=0; i<num_cells; ++i) {
-        uint32_t key = *leafNodeKey(i);
-        std::cout <<"- " << i << " :"<< key << " \n";
+void Node::indent(uint32_t level) {
+    for (uint32_t i=0; i<level; ++i) {
+        printf("  ");
+    }
+}
+
+void Node::printTree(Pager &pager_, uint32_t page_num, uint32_t indentation_level) {
+    void* node = pager_.getPage(page_num);
+    uint32_t num_keys, child;
+
+    switch (getNodeType()) {
+        case NODE_LEAF:
+            num_keys = *leafNodeNumCells();
+            indent(indentation_level);
+            printf("- leaf (size %d)\n", num_keys);
+            for (uint32_t i=0; i<num_keys; ++i) {
+                indent(indentation_level + 1);
+                printf("- %d\n", *leafNodeKey(i));
+            }
+            break;
+        case NODE_INTERNAL:
+            num_keys = *internalNodeNumKeys();
+            indent(indentation_level);
+            printf("- internal (size %d)\n", num_keys);
+            for (uint32_t i=0; i<num_keys; ++i) {
+                child = *internalNodeChild(i);
+                printTree(pager_, child, indentation_level + 1);
+
+                indent(indentation_level + 1);
+                printf("- key %d\n", *internalNodeKey(i));
+            }
+            child = *internalNodeRightChild();
+            printTree(pager_, child, indentation_level + 1);
+            break;
     }
 }
 
