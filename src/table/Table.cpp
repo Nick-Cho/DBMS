@@ -78,10 +78,18 @@ void Table::dbOpen(const std::string filename) {
 }
 
 Cursor Table::tableStart() {
-    void* root_node = pager_->getPage(root_page_num_);
-    Node node = Node(root_node);
-    uint32_t num_cells = *(node.leafNodeNumCells());
-    return Cursor(this, root_page_num_, 0, num_cells == 0); // Can be end of the table if there is nothing in it
+    // void* root_node = pager_->getPage(root_page_num_);
+    // Node node = Node(root_node);
+    // uint32_t num_cells = *(node.leafNodeNumCells());
+    // return Cursor(this, root_page_num_, 0, num_cells == 0); // Can be end of the table if there is nothing in it
+
+    Cursor cursor = tableFind(0);
+
+    void* node = pager_->getPage(cursor.getPageNum());
+
+    uint32_t num_cells = *static_cast<Node*>(node)->leafNodeNumCells();
+    cursor.setTableEnd(num_cells == 0);
+    return cursor;
 }
 
 // Cursor Table::tableEnd() {
@@ -124,6 +132,8 @@ void Table::leafNodeSplitAndInsert(Cursor* cursor, uint32_t key, Row* value) {
     uint32_t new_page_num = pager_->getUnusedPageNum();
     void* new_node = pager_->getPage(new_page_num);
     Node(new_node).initializeLeafNode();
+    *Node(new_node).leafNodeNextLeaf() = *Node(old_node).leafNodeNextLeaf(); 
+    *Node(old_node).leafNodeNextLeaf() = new_page_num;
 
     // Need to balance all existing keys into the old (left) and new nodes (right) evenly
     // Starting from right, move every key into its correct position in the new node
@@ -146,6 +156,7 @@ void Table::leafNodeSplitAndInsert(Cursor* cursor, uint32_t key, Row* value) {
         if (i == cursor->getCellNum()) {
             // Case where we are on the new cell location
             value->serializeRow(static_cast<char*>(Node(destination).leafNodeValue(index_within_node)));
+            *Node(destination).leafNodeKey(index_within_node) = key;
         } 
         
         else if (i > cursor->getCellNum()) {

@@ -6,6 +6,7 @@ void Node::initializeLeafNode() {
     setNodeType(NODE_LEAF);
     setRoot(false);
     *leafNodeNumCells() = 0;    
+    *leafNodeNextLeaf() = 0;
 }
 
 uint32_t* Node::leafNodeNumCells() {
@@ -135,4 +136,8 @@ void Node::initializeInternalNode() {
     setNodeType(NODE_INTERNAL);
     setRoot(false);
     *internalNodeNumKeys() = 0;
+}
+
+uint32_t* Node::leafNodeNextLeaf() {
+    return static_cast<uint32_t*>(node_ + LEAF_NODE_NEXT_LEAF_OFFSET);
 }

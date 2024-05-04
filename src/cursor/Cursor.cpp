@@ -14,12 +14,12 @@ Cursor& Cursor::operator++() {
     if (cell_num_ >= *(node.leafNodeNumCells())){
         uint32_t next_page_num = *node.leafNodeNextLeaf();
         if (next_page_num == 0){
+            // This is the rightmost leaf node
             b_table_end_ = true;
         } else {
             page_num_ = next_page_num;
             cell_num_ = 0;
         }
-        b_table_end_ = true;
     }
     return *this;
 }
@@ -46,4 +46,8 @@ uint32_t Cursor::getCellNum() {
 
 void Cursor::setCellNum(uint32_t cell_num) {
     cell_num_ = cell_num;
+}
+
+void Cursor::setTableEnd(bool isEndOfTable) {
+    b_table_end_ = isEndOfTable;
 }
