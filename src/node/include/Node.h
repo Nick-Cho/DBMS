@@ -44,6 +44,27 @@ const uint32_t LEAF_NODE_MAX_CELLS = LEAF_NODE_SPACE_FOR_CELLS / LEAF_NODE_CELL_
 const uint32_t LEAF_NODE_RIGHT_SPLIT_COUNT = (LEAF_NODE_MAX_CELLS + 1) / 2;
 const uint32_t LEAF_NODE_LEFT_SPLIT_COUNT = (LEAF_NODE_MAX_CELLS + 1) - LEAF_NODE_RIGHT_SPLIT_COUNT;
 
+
+/*
+ * Internal Node Header Layout
+ */
+// Left child should just be at the start of the internal node body
+const uint32_t INTERNAL_NODE_NUM_KEYS_SIZE = sizeof(uint32_t);
+const uint32_t INTERNAL_NODE_NUM_KEYS_OFFSET = COMMON_NODE_HEADER_SIZE;
+const uint32_t INTERNAL_NODE_RIGHT_CHILD_SIZE = sizeof(uint32_t);
+const uint32_t INTERNAL_NODE_RIGHT_CHILD_OFFSET = INTERNAL_NODE_NUM_KEYS_OFFSET + INTERNAL_NODE_NUM_KEYS_SIZE;
+const uint32_t INTERNAL_NODE_HEADER_SIZE = COMMON_NODE_HEADER_SIZE + INTERNAL_NODE_NUM_KEYS_SIZE + INTERNAL_NODE_RIGHT_CHILD_SIZE;
+
+/*
+ * Internal Node Body Layout
+ */
+// The body is an array of cells where each cell contains at least one child pointer and a key. 
+// Every key should be the maximum key contained in the child to its left.
+const uint32_t INTERNAL_NODE_KEY_SIZE = sizeof(uint32_t);
+const uint32_t INTERNAL_NODE_CHILD_SIZE = sizeof(uint32_t);
+const uint32_t INTERNAL_NODE_CELL_SIZE = INTERNAL_NODE_CHILD_SIZE + INTERNAL_NODE_KEY_SIZE;
+
+
 class Node {
     private:
         void *node_;
@@ -69,6 +90,16 @@ class Node {
         NodeType getNodeType();
 
         void setNodeType(NodeType type);
+
+        uint32_t* internalNodeNumKeys();
+
+        uint32_t* internalNodeRightChild();
+
+        uint32_t* internalNodeCell(uint32_t cell_num);
+
+        uint32_t* internalNodeChild(uint32_t child_num);
+
+        uint32_t* internalNodeKey(uint32_t key_num); // Gets the key associated with the internal node (should be the maximum key in the left child)
 };
 
 #endif

@@ -53,3 +53,31 @@ void Node::initializeLeafNode() {
     *leafNodeNumCells() = 0;
     *leafNodeNextLeaf() = 0; // since it has no siblings
 }
+
+uint32_t* Node::internalNodeNumKeys() {
+    return static_cast<uint32_t*>(node_ + INTERNAL_NODE_NUM_KEYS_SIZE);
+}
+
+uint32_t* Node::internalNodeRightChild() {
+    return static_cast<uint32_t*>(node_ + INTERNAL_NODE_RIGHT_CHILD_OFFSET);
+}
+
+uint32_t* Node::internalNodeCell(uint32_t cell_num) {
+    return static_cast<uint32_t*>(node_ + INTERNAL_NODE_HEADER_SIZE + (cell_num * INTERNAL_NODE_CELL_SIZE));
+}
+
+uint32_t* Node::internalNodeChild(uint32_t child_num) {
+    uint32_t num_keys = *internalNodeNumKeys();
+    if (child_num > num_keys) {
+        printf("Tried to access child_num %d > num_keys %d\n", child_num, num_keys);
+        exit(EXIT_FAILURE);
+    } else if (child_num == num_keys) {
+        return internalNodeRightChild();
+    } else {
+        return internalNodeCell(child_num);
+    }
+}
+
+uint32_t* Node::internalNodeKey(uint32_t key_num) {
+    return internalNodeCell(key_num) + INTERNAL_NODE_CHILD_SIZE;
+}
