@@ -100,6 +100,7 @@ class Node {
         uint32_t* internalNodeChild(uint32_t child_num);
 
         uint32_t* internalNodeKey(uint32_t key_num); // Gets the key associated with the internal node (should be the maximum key in the left child)
-};
 
+        uint32_t getNodeMaxKey();
+};
 #endif

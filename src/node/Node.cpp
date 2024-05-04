@@ -81,3 +81,14 @@ uint32_t* Node::internalNodeChild(uint32_t child_num) {
 uint32_t* Node::internalNodeKey(uint32_t key_num) {
     return internalNodeCell(key_num) + INTERNAL_NODE_CHILD_SIZE;
 }
+
+uint32_t Node::getNodeMaxKey() {
+    // For internal nodes, the maximum key is the key associated with the last child
+    // For leaf nodes, the maximum key is the key associated with the last cell
+    switch(getNodeType()) {
+        case NODE_INTERNAL:
+            return *internalNodeKey(*internalNodeNumKeys() - 1);
+        case NODE_LEAF:
+            return *leafNodeKey(*leafNodeNumCells() - 1);
+    }
+}
