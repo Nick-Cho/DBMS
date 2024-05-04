@@ -36,6 +36,8 @@ class Table {
         Cursor leafNodeFind(uint32_t page_num, uint32_t key);
 
         void leafNodeSplitAndInsert(Cursor* cursor, uint32_t key, Row* value);
+
+        void createNewRoot(uint32_t right_child_page_num);
     private:
         uint32_t root_page_num_;
         std::shared_ptr<Pager> pager_;

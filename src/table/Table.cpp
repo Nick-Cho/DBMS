@@ -230,3 +230,38 @@ Cursor Table::leafNodeFind(uint32_t page_num, uint32_t key) {
     cursor.setCellNum(min_index);
     return cursor;
 }
+
+void Table::createNewRoot(uint32_t right_child_page_num) {
+    /*
+    Handle splitting the root.
+    Old root copied to new page, becomes left child.
+    Address of right child passed in.
+    Re-initialize root page to contain the new root node.
+    New root node points to two children.
+    */
+
+    void *root = pager_->getPage(root_page_num_);
+    void *right_child = pager_->getPage(right_child_page_num);
+    uint32_t left_child_page_num = pager_->getUnusedPageNum();
+    void *left_child = pager_->getPage(left_child_page_num);
+
+    // Moving old root to left child
+    std::copy(
+        static_cast<char*>(root),
+        static_cast<char*>(root) + PAGE_SIZE,
+        static_cast<char*>(left_child)
+    );
+    Node(left_child).setRoot(false);
+
+    // Root node is a new internal node with one key and two children
+    // Allocating new root node
+    Node n_root = Node(root);
+    n_root.initializeInternalNode();
+    n_root.setRoot(true);
+    *(n_root.internalNodeNumKeys()) = 1;
+    *(n_root.internalNodeChild(0)) = left_child_page_num;
+    uint32_t left_child_max_key = *(Node(left_child).internalNodeKey(0));
+    *(n_root.internalNodeKey(0)) = left_child_max_key;
+    *(n_root.internalNodeRightChild()) = right_child_page_num;
+
+}
