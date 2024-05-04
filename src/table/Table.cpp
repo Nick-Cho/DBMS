@@ -70,6 +70,7 @@ void Table::dbOpen(const std::string filename) {
     pager_ = std::make_shared<Pager>(filename);
     if (pager_->getNumPages() == 0) {
         void *root_node = pager_->getPage(0);
+        static_cast<Node*>(root_node)->setRoot(true);
         Node node = Node(root_node);
         node.initializeLeafNode();
         node.setRoot(true);
@@ -140,7 +141,7 @@ void Table::leafNodeSplitAndInsert(Cursor* cursor, uint32_t key, Row* value) {
         // % is for the case that the new cell has to go into the right node
         // so the cell number will be greater than the max number of cells
         uint32_t index_within_node = i % LEAF_NODE_LEFT_SPLIT_COUNT;
-        void* destination = leafNodeCell(destination_node, index_within_node);
+        void* destination = static_cast<Node*>(destination_node)->leafNodeCell(index_within_node);
 
         if (i == cursor->getCellNum()) {
             // Case where we are on the new cell location

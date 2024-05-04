@@ -71,6 +71,8 @@ class Node {
     public:
         Node(void *node);
         
+        void initializeLeafNode();
+
         uint32_t* leafNodeNumCells();
         
         void* leafNodeCell(uint32_t cell_num);
@@ -102,5 +104,11 @@ class Node {
         uint32_t* internalNodeKey(uint32_t key_num); // Gets the key associated with the internal node (should be the maximum key in the left child)
 
         uint32_t getNodeMaxKey();
+
+        bool isRoot();
+
+        void setRoot(bool is_root);
+
+        void initializeInternalNode();
 };
 #endif
