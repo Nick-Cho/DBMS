@@ -190,7 +190,7 @@ void Table::printConstants() {
 void Table::printTree(uint32_t page_num) {
     std::cout << "Tree:\n";
     Node node = Node(pager_->getPage(page_num));
-    node.printTree(pager_, 0, 0);
+    node.printTree(*pager_, 0, 0);
 }
 
 Cursor Table::tableFind(uint32_t search_key) {
@@ -198,8 +198,9 @@ Cursor Table::tableFind(uint32_t search_key) {
     if (node.getNodeType() == NODE_LEAF) {
         return leafNodeFind(root_page_num_, search_key);
     } else {
-        printf("Need to implement searching for internal node");
-        exit(EXIT_FAILURE);
+        // printf("Need to implement searching for internal node");
+        // exit(EXIT_FAILURE);
+        return internalNodeFind(root_page_num_, search_key);
     }
 }
 
@@ -265,4 +266,33 @@ void Table::createNewRoot(uint32_t right_child_page_num) {
     *(n_root.internalNodeKey(0)) = left_child_max_key;
     *(n_root.internalNodeRightChild()) = right_child_page_num;
 
+}
+
+Cursor Table::internalNodeFind(uint32_t page_num, uint32_t key) {
+    void* node = pager_->getPage(page_num);
+    uint32_t num_keys = *static_cast<Node*>(node)->internalNodeNumKeys();
+
+    // Binary search
+    uint32_t min_index = 0;
+    uint32_t max_index = num_keys; // Should be one more child than key
+
+    while (min_index <= max_index) {
+        uint32_t index = (min_index + max_index) / 2;
+        uint32_t key_to_right = *static_cast<Node*>(node)->internalNodeKey(index);
+        if (key_to_right >= key) {
+            // move right ptr to middle
+            max_index = index;
+        } else {
+            min_index = index + 1;
+        }
+    }
+
+    uint32_t child_num = *static_cast<Node*>(node)->internalNodeChild(min_index);
+    void* child = pager_->getPage(child_num);
+    switch (static_cast<Node*>(child)->getNodeType()) {
+        case NODE_LEAF:
+            return leafNodeFind(child_num, key);
+        case NODE_INTERNAL:
+            return internalNodeFind(child_num, key);
+    }
 }
