@@ -189,7 +189,7 @@ void Table::leafNodeSplitAndInsert(Cursor* cursor, uint32_t key, Row* value) {
             uint32_t parent_page_num = *Node(old_node).nodeParent();
             uint32_t new_max = Node(old_node).getNodeMaxKey();
             void* parent = pager_->getPage(parent_page_num);
-            Node(parent).updateInternalNodeChild(old_max, new_max);
+            Node(parent).updateInternalNodeKey(old_max, new_max);
             internalNodeInsert(parent_page_num, new_page_num);
             return;
         }
