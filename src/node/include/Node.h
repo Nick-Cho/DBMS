@@ -66,6 +66,8 @@ const uint32_t INTERNAL_NODE_CELL_SIZE = INTERNAL_NODE_CHILD_SIZE + INTERNAL_NOD
 const uint32_t LEAF_NODE_NEXT_LEAF_SIZE = sizeof(uint32_t);
 const uint32_t LEAF_NODE_NEXT_LEAF_OFFSET = LEAF_NODE_NUM_CELLS_OFFSET + LEAF_NODE_NUM_CELLS_SIZE;
 const uint32_t LEAF_NODE_HEADER_SIZE = COMMON_NODE_HEADER_SIZE + LEAF_NODE_NUM_CELLS_SIZE + LEAF_NODE_NEXT_LEAF_SIZE;
+const uint32_t INTERNAL_NODE_MAX_CELLS = 3;
+
 
 class Node {
     private:
@@ -116,5 +118,11 @@ class Node {
         void initializeInternalNode();
 
         uint32_t* leafNodeNextLeaf();
+
+        uint32_t* nodeParent();
+
+        void updateInternalNodeKey(uint32_t old_key, uint32_t new_key);
+
+        uint32_t internalNodeFindChild(uint32_t key); // Returns the index of the child which should contain the key
 };
 #endif

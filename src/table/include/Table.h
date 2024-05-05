@@ -40,6 +40,8 @@ class Table {
         void createNewRoot(uint32_t right_child_page_num);
 
         Cursor internalNodeFind(uint32_t page_num, uint32_t key);
+
+        void internalNodeInsert(uint32_t parent_page_num, uint32_t child_page_num);
     private:
         uint32_t root_page_num_;
         std::shared_ptr<Pager> pager_;

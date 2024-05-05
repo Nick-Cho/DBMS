@@ -141,3 +141,29 @@ void Node::initializeInternalNode() {
 uint32_t* Node::leafNodeNextLeaf() {
     return static_cast<uint32_t*>(node_ + LEAF_NODE_NEXT_LEAF_OFFSET);
 }
+
+uint32_t* Node::nodeParent() {
+    return static_cast<uint32_t*>(node_ + PARENT_POINTER_OFFSET);
+}
+
+void Node::updateInternalNodeKey(uint32_t old_key, uint32_t new_key) {
+    uint32_t old_child_num = internalNodeFindChild(old_key);
+    *internalNodeKey(old_child_num) = new_key;
+}
+
+uint32_t Node::internalNodeFindChild(uint32_t key) {
+    uint32_t num_keys = *internalNodeNumKeys();
+    uint32_t left = 0;
+    uint32_t right = num_keys;
+
+    while(left != right) {
+        uint32_t mid = (left + right) / 2;
+        uint32_t key_to_right = *internalNodeKey(mid);
+        if (key_to_right >= key) {
+            right = mid;
+        } else {
+            left = mid + 1;
+        }
+    }
+    return left;
+}
