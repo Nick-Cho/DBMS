@@ -1,4 +1,5 @@
 #include "./include/Node.h"
+#include "../../table/include/Table.h"
 
 Node::Node(void* node): node_(node) {}
 
@@ -59,12 +60,14 @@ void Node::printTree(Pager &pager_, uint32_t page_num, uint32_t indentation_leve
             num_keys = *internalNodeNumKeys();
             indent(indentation_level);
             printf("- internal (size %d)\n", num_keys);
-            for (uint32_t i=0; i<num_keys; ++i) {
-                child = *internalNodeChild(i);
-                printTree(pager_, child, indentation_level + 1);
+            if (num_keys > 0) {
+                for (uint32_t i=0; i<num_keys; ++i) {
+                    child = *internalNodeChild(i);
+                    printTree(pager_, child, indentation_level + 1);
 
-                indent(indentation_level + 1);
-                printf("- key %d\n", *internalNodeKey(i));
+                    indent(indentation_level + 1);
+                    printf("- key %d\n", *internalNodeKey(i));
+                }
             }
             child = *internalNodeRightChild();
             printTree(pager_, child, indentation_level + 1);
@@ -107,25 +110,28 @@ uint32_t* Node::internalNodeChild(uint32_t child_num) {
         printf("Tried to access child_num %d > num_keys %d\n", child_num, num_keys);
         exit(EXIT_FAILURE);
     } else if (child_num == num_keys) {
-        return internalNodeRightChild();
+        // return internalNodeRightChild();
+        uint32_t right_child = *internalNodeRightChild();
+        if (right_child == INVALID_PAGE_NUM) {
+            printf("Tried to access right child when it doesn't exist\n");
+            exit(EXIT_FAILURE);
+        } else {
+            return &right_child;
+        }
     } else {
-        return internalNodeCell(child_num);
+        uint32_t child_num = *internalNodeCell(child_num);
+        if (child_num == INVALID_PAGE_NUM) {
+            printf("Tried to access child at invalid page number\n");
+            exit(EXIT_FAILURE);
+        } else {
+            return &child_num;
+        }
+        // return internalNodeCell(child_num);
     }
 }
 
 uint32_t* Node::internalNodeKey(uint32_t key_num) {
     return internalNodeCell(key_num) + INTERNAL_NODE_CHILD_SIZE;
-}
-
-uint32_t Node::getNodeMaxKey() {
-    // For internal nodes, the maximum key is the key associated with the last child
-    // For leaf nodes, the maximum key is the key associated with the last cell
-    switch(getNodeType()) {
-        case NODE_INTERNAL:
-            return *internalNodeKey(*internalNodeNumKeys() - 1);
-        case NODE_LEAF:
-            return *leafNodeKey(*leafNodeNumCells() - 1);
-    }
 }
 
 bool Node::isRoot() {
@@ -136,6 +142,12 @@ void Node::initializeInternalNode() {
     setNodeType(NODE_INTERNAL);
     setRoot(false);
     *internalNodeNumKeys() = 0;
+    /*
+    Necessary because the root page number is 0; by not initializing an internal 
+    node's right child to an invalid page number when initializing the node, we may
+    end up with 0 as the node's right child, which makes the node a parent of the root
+    */
+    *internalNodeRightChild() = INVALID_PAGE_NUM;
 }
 
 uint32_t* Node::leafNodeNextLeaf() {

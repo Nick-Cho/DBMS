@@ -129,7 +129,7 @@ void Table::leafNodeSplitAndInsert(Cursor* cursor, uint32_t key, Row* value) {
     // Update parent or create a new parent
 
     void* old_node = pager_->getPage(cursor->getPageNum());
-    uint32_t old_max = Node(old_node).getNodeMaxKey();
+    uint32_t old_max = getNodeMaxKey(Node(old_node));
     uint32_t new_page_num = pager_->getUnusedPageNum();
     void* new_node = pager_->getPage(new_page_num);
     Node(new_node).initializeLeafNode();
@@ -187,7 +187,7 @@ void Table::leafNodeSplitAndInsert(Cursor* cursor, uint32_t key, Row* value) {
         } else {
             // Need to insert a new key into the parent of the two nodes
             uint32_t parent_page_num = *Node(old_node).nodeParent();
-            uint32_t new_max = Node(old_node).getNodeMaxKey();
+            uint32_t new_max = getNodeMaxKey(Node(old_node));
             void* parent = pager_->getPage(parent_page_num);
             Node(parent).updateInternalNodeKey(old_max, new_max);
             internalNodeInsert(parent_page_num, new_page_num);
@@ -267,6 +267,11 @@ void Table::createNewRoot(uint32_t right_child_page_num) {
     void *left_child = pager_->getPage(left_child_page_num);
     *Node(left_child).nodeParent() = root_page_num_;
 
+    if (static_cast<Node>(root).getNodeType() == NODE_INTERNAL) {
+        static_cast<Node>(right_child).initializeInternalNode();
+        static_cast<Node>(left_child).initializeInternalNode();
+    }
+
     // Moving old root to left child
     std::copy(
         static_cast<char*>(root),
@@ -275,6 +280,15 @@ void Table::createNewRoot(uint32_t right_child_page_num) {
     );
     Node(left_child).setRoot(false);
 
+    if (static_cast<Node>(left_child).getNodeType() == NODE_INTERNAL) {
+        void* child;
+        for (int i=0; i<*Node(left_child).internalNodeNumKeys(); i++) {
+            child = pager_->getPage(*Node(left_child).internalNodeChild(i));
+            *Node(child).nodeParent() = left_child_page_num;
+        }
+        child = pager_->getPage(*Node(left_child).internalNodeRightChild());
+        *Node(child).nodeParent() = left_child_page_num;
+    }
     // Root node is a new internal node with one key and two children
     // Allocating new root node
     Node n_root = Node(root);
@@ -320,24 +334,41 @@ Cursor Table::internalNodeFind(uint32_t page_num, uint32_t key) {
 void Table::internalNodeInsert(uint32_t parent_page_num, uint32_t child_page_num) {
     void* parent = pager_->getPage(parent_page_num);
     void* child = pager_->getPage(child_page_num);
-    uint32_t child_max_key = static_cast<Node*>(child)->getNodeMaxKey();
+    uint32_t child_max_key = getNodeMaxKey(static_cast<Node*>(child));
     uint32_t index = static_cast<Node*>(parent)->internalNodeFindChild(child_max_key);
 
     uint32_t original_num_keys = *static_cast<Node*>(parent)->internalNodeNumKeys();
-    *static_cast<Node*>(parent)->internalNodeNumKeys() = original_num_keys + 1;
+    // *static_cast<Node*>(parent)->internalNodeNumKeys() = original_num_keys + 1; // Moved further down to ensure that we don't increment before splitting
 
     if (original_num_keys >= INTERNAL_NODE_MAX_CELLS) {
         // printf("Need to implement splitting internal node\n");
         // exit(EXIT_FAILURE);
+        internalNodeSplitAndInsert(parent_page_num, child_page_num);
+        return;
     }   
 
     uint32_t right_child_page_num = *static_cast<Node*>(parent)->internalNodeRightChild();
+    /*
+    An internal node with a right child of INVALID_PAGE_NUM is empty
+    */
+    if (right_child_page_num == INVALID_PAGE_NUM) {
+        *static_cast<Node*>(parent)->internalNodeRightChild() = child_page_num;
+        return;
+  }
     void* right_child = pager_->getPage(right_child_page_num);
 
-    if (child_max_key > Node(right_child).getNodeMaxKey()) {
+    /*
+    If we are already at the max number of cells for a node, we cannot increment
+    before splitting. Incrementing without inserting a new key/child pair
+    and immediately calling internal_node_split_and_insert has the effect
+    of creating a new key at (max_cells + 1) with an uninitialized value
+    */
+
+    *static_cast<Node*>(parent)->internalNodeNumKeys() = original_num_keys;
+    if (child_max_key > getNodeMaxKey(Node(right_child))) {
         // Replace right child with child passed in
         *static_cast<Node*>(parent)->internalNodeChild(original_num_keys) = right_child_page_num;
-        *static_cast<Node*>(parent)->internalNodeKey(original_num_keys) = Node(right_child).getNodeMaxKey();
+        *static_cast<Node*>(parent)->internalNodeKey(original_num_keys) = getNodeMaxKey(Node(right_child));
         *static_cast<Node*>(parent)->internalNodeRightChild() = child_page_num;
     } else {
         // Make room for the new child on left side
@@ -353,4 +384,87 @@ void Table::internalNodeInsert(uint32_t parent_page_num, uint32_t child_page_num
     }
     //print number of keys
     std::cout << "num keys after insert: " << *(Node(parent).internalNodeNumKeys()) << "\n";
+}
+
+void Table::internalNodeSplitAndInsert(uint32_t parent_page_num, uint32_t child_page_num) {
+    uint32_t old_page_num = parent_page_num;
+    void* old_node = pager_->getPage(parent_page_num);
+    uint32_t old_max = getNodeMaxKey(Node(old_node));
+
+    void* child = pager_->getPage(child_page_num);
+    uint32_t child_max = getNodeMaxKey(Node(child));
+
+    uint32_t new_page_num = pager_->getUnusedPageNum();
+
+    uint32_t b_splitting_root = static_cast<Node>(old_node).isRoot(); // Flag to check if we have to split the root
+
+    void* parent;
+    void* new_node;
+    if (b_splitting_root) {
+        createNewRoot(new_page_num);
+        parent = pager_->getPage(root_page_num_);
+        /*
+            If we are splitting the root, we need to update old_node to be pointed
+            to by the new root's left child pointer, new_page_num will already point to
+            the new root's right child
+        */
+        old_node = pager_->getPage(*Node(old_node).internalNodeChild(0));     
+    } else {
+        parent = pager_->getPage(*Node(old_node).nodeParent());
+        new_node = pager_->getPage(new_page_num);
+        static_cast<Node>(new_node).initializeInternalNode();
+    }
+
+    uint32_t* old_num_keys = static_cast<Node>(old_node).internalNodeNumKeys();
+    uint32_t curr_page_num = *static_cast<Node>(old_node).internalNodeRightChild();
+    void* curr_page = pager_->getPage(curr_page_num);
+    
+    // Putting right child into new node and setting right child pointer to invalid_page_num in old node
+    internalNodeInsert(new_page_num, curr_page_num);
+    *static_cast<Node>(curr_page).nodeParent() = new_page_num;
+    *static_cast<Node>(old_node).internalNodeRightChild() = INVALID_PAGE_NUM;
+
+    // Rebalancing keys
+    for (int i=INTERNAL_NODE_MAX_CELLS-1; i > INTERNAL_NODE_MAX_CELLS/2; i--) {
+        curr_page_num = *static_cast<Node>(old_node).internalNodeChild(i);
+        curr_page = pager_->getPage(curr_page_num);
+
+        // Move child to new node
+        internalNodeInsert(new_page_num, curr_page_num);
+        *static_cast<Node>(curr_page).nodeParent() = new_page_num;
+
+        (*old_num_keys)--;
+    }
+
+    // Set child ptr before middle's key, to be node's right child (should now be the highest key)
+    *static_cast<Node>(old_node).internalNodeRightChild() = *static_cast<Node>(old_node).internalNodeChild(*old_num_keys-1);
+    (*old_num_keys)--;
+
+    //Choosing which of the 2 internal nodes after the split will contain the newly inserted node
+    uint32_t max_after_split = getNodeMaxKey(Node(old_node));
+
+    uint32_t destination_page_num = child_max < max_after_split ? child_page_num : new_page_num;
+
+    internalNodeInsert(parent_page_num, destination_page_num);
+    *static_cast<Node>(child).nodeParent() = destination_page_num;
+
+    Node(parent).updateInternalNodeKey(old_max, getNodeMaxKey(Node(old_node)));
+
+    if (!b_splitting_root) {
+        internalNodeInsert(*Node(old_node).nodeParent(), new_page_num);
+        *Node(new_node).nodeParent() = *Node(old_node).nodeParent();
+    }
+
+}
+
+uint32_t Table::getNodeMaxKey(Node node) {
+    // For internal nodes, the maximum key is the key associated with the last child
+    // For leaf nodes, the maximum key is the key associated with the last cell
+    switch(node.getNodeType()) {
+        case NODE_INTERNAL:
+            void* right_child = pager_->getPage(*node.internalNodeRightChild());
+            return getNodeMaxKey(Node(right_child));
+        case NODE_LEAF:
+            return *node.leafNodeKey(*node.leafNodeNumCells() - 1);
+    }
 }

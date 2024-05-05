@@ -109,8 +109,6 @@ class Node {
 
         uint32_t* internalNodeKey(uint32_t key_num); // Gets the key associated with the internal node (should be the maximum key in the left child)
 
-        uint32_t getNodeMaxKey();
-
         bool isRoot();
 
         void setRoot(bool is_root);

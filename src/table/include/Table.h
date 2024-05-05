@@ -7,6 +7,8 @@
 
 #include <string>
 
+#define INVALID_PAGE_NUM UINT32_MAX
+
 class Cursor;
 class Table {
     friend class Cursor;
@@ -42,6 +44,10 @@ class Table {
         Cursor internalNodeFind(uint32_t page_num, uint32_t key);
 
         void internalNodeInsert(uint32_t parent_page_num, uint32_t child_page_num);
+
+        void internalNodeSplitAndInsert(uint32_t parent_page_num, uint32_t child_page_num);
+
+        uint32_t Table::getNodeMaxKey(Node node);
     private:
         uint32_t root_page_num_;
         std::shared_ptr<Pager> pager_;
