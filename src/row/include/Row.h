@@ -9,15 +9,15 @@ static const size_t EMAIL_SIZE = 255;
 class Row {
     public:
         Row();
-        void print_row() const;
-        void serialize_row( char* destination) const;
-        void deserialize_row(const char* source);
-        void set_id(uint32_t id);
-        void set_username(const std::string& username);
-        void set_email(const std::string& email);
-        uint32_t get_id() const;
-        const char* get_username() const;
-        const char* get_email() const;
+        void printRow() const;
+        void serializeRow( char* destination) const;
+        void deserializeRow(const char* source);
+        void setId(uint32_t id);
+        void setUsername(const std::string& username);
+        void setEmail(const std::string& email);
+        uint32_t getId() const;
+        const char* getUsername() const;
+        const char* getEmail() const;
     private:
         uint32_t id_;
         char username_[USERNAME_SIZE + 1]; // +1 for null terminator

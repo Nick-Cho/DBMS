@@ -20,6 +20,7 @@ enum class PrepareResult {
 
 enum class ExecuteResult {
     EXECUTE_SUCCESS,
+    EXECUTE_DUPLICATE_KEY,
     EXECUTE_TABLE_FULL
 };
 
