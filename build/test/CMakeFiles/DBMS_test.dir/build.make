@@ -118,10 +118,12 @@ test/DBMS_test: librow.a
 test/DBMS_test: libtable.a
 test/DBMS_test: libpager.a
 test/DBMS_test: libcursor.a
+test/DBMS_test: libnode.a
 test/DBMS_test: librow.a
 test/DBMS_test: libtable.a
 test/DBMS_test: libpager.a
 test/DBMS_test: libcursor.a
+test/DBMS_test: libnode.a
 test/DBMS_test: test/CMakeFiles/DBMS_test.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/nickcho/Desktop/Coding/DBMS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable DBMS_test"
 	cd /Users/nickcho/Desktop/Coding/DBMS/build/test && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/DBMS_test.dir/link.txt --verbose=$(VERBOSE)

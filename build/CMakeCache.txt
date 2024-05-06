@@ -409,6 +409,9 @@ gtest_force_shared_crt:BOOL=OFF
 gtest_hide_internal_symbols:BOOL=OFF
 
 //Dependencies for the target
+node_LIB_DEPENDS:STATIC=general;table;
+
+//Dependencies for the target
 pager_LIB_DEPENDS:STATIC=general;row;general;table;
 
 //Dependencies for the target
@@ -418,7 +421,7 @@ row_LIB_DEPENDS:STATIC=general;table;
 statement_LIB_DEPENDS:STATIC=general;row;general;table;
 
 //Dependencies for the target
-table_LIB_DEPENDS:STATIC=general;pager;general;cursor;
+table_LIB_DEPENDS:STATIC=general;pager;general;cursor;general;node;
 
 
 ########################

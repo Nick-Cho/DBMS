@@ -536,6 +536,19 @@ ContinuousSubmit/fast:
 .PHONY : ContinuousSubmit/fast
 
 #=============================================================================
+# Target rules for targets named node
+
+# Build rule for target.
+node: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 node
+.PHONY : node
+
+# fast build rule for target.
+node/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/node.dir/build.make CMakeFiles/node.dir/build
+.PHONY : node/fast
+
+#=============================================================================
 # Target rules for targets named cursor
 
 # Build rule for target.
@@ -763,6 +776,30 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DBMS.dir/build.make CMakeFiles/DBMS.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/node/node.o: src/node/node.cpp.o
+.PHONY : src/node/node.o
+
+# target to build an object file
+src/node/node.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/node.dir/build.make CMakeFiles/node.dir/src/node/node.cpp.o
+.PHONY : src/node/node.cpp.o
+
+src/node/node.i: src/node/node.cpp.i
+.PHONY : src/node/node.i
+
+# target to preprocess a source file
+src/node/node.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/node.dir/build.make CMakeFiles/node.dir/src/node/node.cpp.i
+.PHONY : src/node/node.cpp.i
+
+src/node/node.s: src/node/node.cpp.s
+.PHONY : src/node/node.s
+
+# target to generate assembly for a file
+src/node/node.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/node.dir/build.make CMakeFiles/node.dir/src/node/node.cpp.s
+.PHONY : src/node/node.cpp.s
+
 src/pager/pager.o: src/pager/pager.cpp.o
 .PHONY : src/pager/pager.o
 
@@ -908,6 +945,7 @@ help:
 	@echo "... gtest"
 	@echo "... gtest_main"
 	@echo "... inputBuffer"
+	@echo "... node"
 	@echo "... pager"
 	@echo "... row"
 	@echo "... statement"
@@ -921,6 +959,9 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/node/node.o"
+	@echo "... src/node/node.i"
+	@echo "... src/node/node.s"
 	@echo "... src/pager/pager.o"
 	@echo "... src/pager/pager.i"
 	@echo "... src/pager/pager.s"

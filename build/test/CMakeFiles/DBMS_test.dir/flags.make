@@ -4,7 +4,7 @@
 # compile CXX with /Library/Developer/CommandLineTools/usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/Users/nickcho/Desktop/Coding/DBMS/src/row/include -I/Users/nickcho/Desktop/Coding/DBMS/src/table/include -I/Users/nickcho/Desktop/Coding/DBMS/src/pager/include -I/Users/nickcho/Desktop/Coding/DBMS/src/cursor/include -isystem /Users/nickcho/Desktop/Coding/DBMS/lib/googletest/googletest/include -isystem /Users/nickcho/Desktop/Coding/DBMS/lib/googletest/googletest
+CXX_INCLUDES = -I/Users/nickcho/Desktop/Coding/DBMS/src/row/include -I/Users/nickcho/Desktop/Coding/DBMS/src/table/include -I/Users/nickcho/Desktop/Coding/DBMS/src/pager/include -I/Users/nickcho/Desktop/Coding/DBMS/src/cursor/include -I/Users/nickcho/Desktop/Coding/DBMS/src/node/include -isystem /Users/nickcho/Desktop/Coding/DBMS/lib/googletest/googletest/include -isystem /Users/nickcho/Desktop/Coding/DBMS/lib/googletest/googletest
 
 CXX_FLAGSarm64 = -std=gnu++14 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk
 

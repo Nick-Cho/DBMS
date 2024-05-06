@@ -875,6 +875,10 @@ CMakeFiles/table.dir/src/table/table.cpp.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__filesystem/u8path.h \
   /Users/nickcho/Desktop/Coding/DBMS/src/table/include/../../cursor/include/Cursor.h \
   /Users/nickcho/Desktop/Coding/DBMS/src/cursor/include/../../table/include/Table.h \
+  /Users/nickcho/Desktop/Coding/DBMS/src/table/include/../../node/include/Node.h \
+  /Users/nickcho/Desktop/Coding/DBMS/src/node/include/../../row/include/Row.h \
+  /Users/nickcho/Desktop/Coding/DBMS/src/node/include/../../pager/include/Pager.h \
   /Users/nickcho/Desktop/Coding/DBMS/src/table/../row/include/Row.h \
   /Users/nickcho/Desktop/Coding/DBMS/src/table/../pager/include/Pager.h \
-  /Users/nickcho/Desktop/Coding/DBMS/src/table/../cursor/include/Cursor.h
+  /Users/nickcho/Desktop/Coding/DBMS/src/table/../cursor/include/Cursor.h \
+  /Users/nickcho/Desktop/Coding/DBMS/src/table/../node/include/Node.h
