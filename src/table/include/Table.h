@@ -4,7 +4,7 @@
 #include "../../row/include/Row.h"
 #include "../../pager/include/Pager.h"
 #include "../../cursor/include/Cursor.h"
-
+#include "../../node/include/Node.h"
 #include <string>
 
 #define INVALID_PAGE_NUM UINT32_MAX
@@ -27,7 +27,7 @@ class Table {
         
         // Cursor tableEnd(); -- deprecated for tableFind()
         
-        void leafNodeInsert(Cursor* cursor, uint32_t key, Row* value);
+        void leafNodeInsert(Cursor cursor, uint32_t key, Row* value);
 
         void printConstants();
 
@@ -47,12 +47,11 @@ class Table {
 
         void internalNodeSplitAndInsert(uint32_t parent_page_num, uint32_t child_page_num);
 
-        uint32_t Table::getNodeMaxKey(Node node);
+        uint32_t getNodeMaxKey(Node node);
     private:
         uint32_t root_page_num_;
         std::shared_ptr<Pager> pager_;
-        void* row_slot(uint32_t row_num);
-        
+        // void* row_slot(uint32_t row_num);
 };
 
 #endif

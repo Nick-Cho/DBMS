@@ -17,15 +17,15 @@ bool Table::insert(const Row& row) {
     uint32_t insert_key = row.getId();
     Cursor cursor = tableFind(insert_key);
 
-    Node node = Node(pager_->getPage(cursor.getPageNum()));
+    node = Node(pager_->getPage(cursor.getPageNum()));
     if (cursor.getCellNum() < num_cells) {
         uint32_t key_at_index = *(node.leafNodeKey(cursor.getCellNum()));
         if (key_at_index == insert_key) {
             return false;
         }
     }
-
-    leafNodeInsert(&Cursor(this, root_page_num_, 0, true), row.getId(), const_cast<Row*>(&row));
+    cursor = Cursor(this, root_page_num_, 0, true);
+    leafNodeInsert(cursor, row.getId(), const_cast<Row*>(&row));
     
     return true;
 }
@@ -100,20 +100,20 @@ Cursor Table::tableStart() {
 //     return Cursor(this, end_page_num, num_cells, true); 
 // }
 
-void Table::leafNodeInsert(Cursor* cursor, uint32_t key, Row* value) {
-    void *node = pager_->getPage(cursor->getPageNum());
+void Table::leafNodeInsert(Cursor cursor, uint32_t key, Row* value) {
+    void *node = pager_->getPage(cursor.getPageNum());
 
     uint32_t num_cells = *(Node(node).leafNodeNumCells());
     if (num_cells >= LEAF_NODE_MAX_CELLS) {
         // Node full
         // printf("Need to implement splitting a leaf node\n");
         // exit(EXIT_FAILURE);
-        leafNodeSplitAndInsert(cursor, key, value);
+        leafNodeSplitAndInsert(&cursor, key, value);
     }
 
-    if (cursor->getCellNum() < num_cells) {
+    if (cursor.getCellNum() < num_cells) {
         // Make room for new cell
-        for (uint32_t i=num_cells; i>cursor->getCellNum(); --i) {
+        for (uint32_t i=num_cells; i>cursor.getCellNum(); --i) {
             std::copy(
                 static_cast<char*>(Node(node).leafNodeCell(i-1)),
                 static_cast<char*>(Node(node).leafNodeCell(i-1)) + LEAF_NODE_CELL_SIZE,
@@ -174,7 +174,7 @@ void Table::leafNodeSplitAndInsert(Cursor* cursor, uint32_t key, Row* value) {
             // Case where we are moving cells to the left node
             std::copy(
                 static_cast<char*>(Node(old_node).leafNodeCell(i)),
-                static_cast<char*>(Node(old_node).leafNodeCell(i) + LEAF_NODE_CELL_SIZE),
+                static_cast<char*>(Node(old_node).leafNodeCell(i)) + LEAF_NODE_CELL_SIZE,
                 static_cast<char*>(destination)
             );
         }
@@ -449,7 +449,6 @@ void Table::internalNodeSplitAndInsert(uint32_t parent_page_num, uint32_t child_
     *static_cast<Node>(child).nodeParent() = destination_page_num;
 
     Node(parent).updateInternalNodeKey(old_max, getNodeMaxKey(Node(old_node)));
-
     if (!b_splitting_root) {
         internalNodeInsert(*Node(old_node).nodeParent(), new_page_num);
         *Node(new_node).nodeParent() = *Node(old_node).nodeParent();
@@ -461,10 +460,13 @@ uint32_t Table::getNodeMaxKey(Node node) {
     // For internal nodes, the maximum key is the key associated with the last child
     // For leaf nodes, the maximum key is the key associated with the last cell
     switch(node.getNodeType()) {
-        case NODE_INTERNAL:
-            void* right_child = pager_->getPage(*node.internalNodeRightChild());
-            return getNodeMaxKey(Node(right_child));
-        case NODE_LEAF:
+        case NodeType::NODE_INTERNAL:
+            {
+                void* right_child = pager_->getPage(*node.internalNodeRightChild());
+                return getNodeMaxKey(Node(right_child));
+            }
+        case NodeType::NODE_LEAF:
             return *node.leafNodeKey(*node.leafNodeNumCells() - 1);
     }
+    return -1;
 }
