@@ -39,9 +39,9 @@ The following figure is the architecture diagram of sqlite: <br>
 <img width="315" alt="image" src="https://github.com/Nick-Cho/DBMS/assets/65980644/fd44253c-6a0f-413a-bac1-15ec5b4c60b8"> <br>
 Referring to the picture above, the main development steps are as follows: <br>
 
-Create a console dialog interactive program (REPL: read-execute-print loop);
-Create a simple lexical analyzer to parse SQL statements;
-Write the CURD function to implement the addition, deletion, modification and query operations of the database;
+Create a console dialog interactive program (REPL: read-execute-print loop); <br>
+Create a simple lexical analyzer to parse SQL statements; <br>
+Write the CRUD function to implement the addition, deletion, modification and query operations of the database; <br>
 Create a B+ tree index engine to perform database indexing and disk read and write operations. The data table will be stored in binary form.
 
 
